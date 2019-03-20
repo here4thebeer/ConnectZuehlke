@@ -23,7 +23,10 @@ public class ProjectServiceMocked implements ProjectService {
         Location sbbLocation = new Location("Lindenhofstrasse 1", "Worblaufen", 3048, "Schweiz",  7.459547f, 46.980497f);
         Project sbb = new Project("Sanierung Finanzen", sbbLocation);
 
-        return Arrays.asList(swisscom, six, sbb);
+        Location rhbLocation = new Location("Bahnhofstrasse 25", "Chur", 7001, "Schweiz", 9.532560f, 46.851926f);
+        Project rhb = new Project("Räthische Bahn", rhbLocation);
+
+        return Arrays.asList(swisscom, six, sbb, rhb);
     }
 
 }

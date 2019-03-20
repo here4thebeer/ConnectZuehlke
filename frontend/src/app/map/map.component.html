@@ -2,7 +2,7 @@
   <div *ngFor="let project of projects">
     <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude" [radius]="8000"
       fillColor="red" (circleClick)="handleClickProject(project)">
-      <agm-info-window>{{project.name}}</agm-info-window>
+      <agm-info-window [latitude]="project.location.latitude" [longitude]="project.location.longitude" [isOpen]="project.showDetail">{{project.title}}</agm-info-window>
     </agm-circle>
   </div>
 </agm-map>

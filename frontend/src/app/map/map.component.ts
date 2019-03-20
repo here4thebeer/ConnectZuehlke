@@ -21,10 +21,10 @@ export class MapComponent implements OnInit {
     this.getProjects();
   }
 
-  static handleClickProject(project: Project) {
+  public handleClickProject(project: Project) {
     console.log(project);
+    project.showDetail = !project.showDetail;
   }
-
 
   private getProjects() {
     this.projectService

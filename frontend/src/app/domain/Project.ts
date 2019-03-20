@@ -1,7 +1,7 @@
 import {Location} from './Location';
-export interface Project {
+export class Project {
 
   location: Location;
   title: string;
-
+  showDetail = false;
 }
