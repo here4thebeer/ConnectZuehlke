@@ -1,10 +1,7 @@
-export class Project {
+import {Location} from './Location';
+export interface Project {
 
-  constructor(
-    private lat: number,
-    private lng: number,
-    public name: string,
-    private amountOfEmployees: number,
-  ) {
-  }
+  location: Location;
+  title: string;
+
 }

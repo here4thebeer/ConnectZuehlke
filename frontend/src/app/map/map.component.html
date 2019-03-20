@@ -1,7 +1,7 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
   <div *ngFor="let project of projects">
-    <agm-circle [latitude]="project.lat" [longitude]="project.lng" [radius]="project.amountOfEmployees * 10"
-      fillColor="red" circleClick="handleClickProject(project)">
+    <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude" [radius]="8000"
+      fillColor="red" (circleClick)="handleClickProject(project)">
       <agm-info-window>{{project.name}}</agm-info-window>
     </agm-circle>
   </div>
