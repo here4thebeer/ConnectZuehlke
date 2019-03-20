@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
+package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.customer;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 
