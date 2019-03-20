@@ -1,7 +1,8 @@
-<p>This is the map.</p>
-
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng">
-    <agm-info-window>Börk</agm-info-window>
-  </agm-marker>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+  <div *ngFor="let project of projects">
+    <agm-circle [latitude]="project.lat" [longitude]="project.lng" [radius]="project.amountOfEmployees * 10"
+      fillColor="red" circleClick="handleClickProject(project)">
+      <agm-info-window>{{project.name}}</agm-info-window>
+    </agm-circle>
+  </div>
 </agm-map>
