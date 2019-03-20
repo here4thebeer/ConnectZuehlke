@@ -10,7 +10,7 @@ import static java.util.Arrays.asList;
 
 @Service
 @Profile({"ci", "default"})
-public class InsightCustomerServiceMocked implements InsightCustomerService {
+public class CustomerServiceMocked implements CustomerService {
 
     public static final List<Customer> CUSTOMERS = asList(
             new Customer(18444, "Test AG, Wikon", "Bahnhofstrasse 33", "Wikon", "Schweiz", 4806, 7.9790377484264, 47.2676948098177),

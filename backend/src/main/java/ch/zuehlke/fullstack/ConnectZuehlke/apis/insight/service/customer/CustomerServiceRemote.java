@@ -17,12 +17,12 @@ import static org.springframework.http.HttpMethod.GET;
 
 @Service
 @Profile({"prod", "staging"})
-public class InsightCustomerServiceRemote implements InsightCustomerService {
+public class CustomerServiceRemote implements CustomerService {
     private final RestTemplate insightRestTemplate;
 
 
     @Autowired
-    public InsightCustomerServiceRemote(RestTemplate insightRestTemplate) {
+    public CustomerServiceRemote(RestTemplate insightRestTemplate) {
         this.insightRestTemplate = insightRestTemplate;
     }
 

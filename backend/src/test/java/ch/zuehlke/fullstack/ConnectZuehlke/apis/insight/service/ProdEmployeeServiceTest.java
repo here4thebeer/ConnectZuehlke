@@ -1,7 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeService;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeServiceMocked;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.EmployeeService;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.EmployeeServiceRemote;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("default")
-public class DefaultInsightEmployeeServiceTest {
+@SpringBootTest(properties = {"insight.authentication.username=test", "insight.authentication.password=ImJustFake"})
+@ActiveProfiles("prod")
+public class ProdEmployeeServiceTest {
 
     @Autowired
-    private InsightEmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @Test
     public void testDefaultProfileReturnsMockedInsightEmployeeService() {
-        assertTrue(employeeService instanceof InsightEmployeeServiceMocked);
+        assertTrue(employeeService instanceof EmployeeServiceRemote);
     }
 }

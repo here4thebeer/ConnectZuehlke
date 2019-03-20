@@ -4,6 +4,6 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 
 import java.util.List;
 
-public interface InsightCustomerService {
+public interface CustomerService {
     List<Customer> getCustomers();
 }

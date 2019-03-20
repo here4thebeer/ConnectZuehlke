@@ -1,7 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeService;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.EmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import java.util.List;
 
 @RestController
 public class EmployeeRestController {
-    private final InsightEmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    public EmployeeRestController(InsightEmployeeService employeeService) {
+    public EmployeeRestController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 

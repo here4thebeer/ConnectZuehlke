@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 
 @Service
 @Profile({"ci", "default"})
-public class InsightEmployeeServiceMocked implements InsightEmployeeService {
+public class EmployeeServiceMocked implements EmployeeService {
 
     public static final List<Employee> EMPLOYEES = asList(
             new Employee("Klaus", "Mustermann", 1, "kmu"),

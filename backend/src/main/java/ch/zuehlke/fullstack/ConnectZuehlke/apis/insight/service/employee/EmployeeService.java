@@ -5,7 +5,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import java.io.IOException;
 import java.util.List;
 
-public interface InsightEmployeeService {
+public interface EmployeeService {
 
   List<Employee> getEmployees();
 
