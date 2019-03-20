@@ -14,13 +14,13 @@ public class ProjectServiceMocked implements ProjectService {
 
     @Override
     public List<Project> getProjects() {
-        Location swisscomLocation = new Location("Förrlibruckstrasse 181", "Zürich", 8005, "Schweiz", 47.391702f, 8.511068f);
+        Location swisscomLocation = new Location("Förrlibruckstrasse 181", "Zürich", 8005, "Schweiz",  8.511068f, 47.391702f);
         Project swisscom = new Project("SAM TO", swisscomLocation);
 
-        Location sixLocation = new Location("Hardturmstrasse 201", "Zürich", 8005, "Schweiz", 47.393659f, 8.509338f);
+        Location sixLocation = new Location("Hardturmstrasse 201", "Zürich", 8005, "Schweiz", 8.509338f, 47.393659f);
         Project six = new Project("Starlight", sixLocation);
 
-        Location sbbLocation = new Location("Lindenhofstrasse 1", "Worblaufen", 3048, "Schweiz", 46.980497f, 7.459547f);
+        Location sbbLocation = new Location("Lindenhofstrasse 1", "Worblaufen", 3048, "Schweiz",  7.459547f, 46.980497f);
         Project sbb = new Project("Sanierung Finanzen", sbbLocation);
 
         return Arrays.asList(swisscom, six, sbb);
