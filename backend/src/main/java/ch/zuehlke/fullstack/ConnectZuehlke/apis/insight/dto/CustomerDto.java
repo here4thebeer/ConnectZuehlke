@@ -69,4 +69,18 @@ public class CustomerDto {
                 getLatitude()
         );
     }
+
+    @Override
+    public String toString() {
+        return "CustomerDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", zip=" + zip +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                '}';
+    }
 }

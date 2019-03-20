@@ -1,5 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto;
 
+import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,6 +25,9 @@ public class ProjectDto {
 
     @JsonProperty("Id")
     private Integer id;
+
+    private CustomerDto customerDto;
+
 
     public Project toProject() {
         return new Project(title, null);
@@ -75,5 +79,26 @@ public class ProjectDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public CustomerDto getCustomerDto() {
+        return customerDto;
+    }
+
+    public void setCustomerDto(CustomerDto customerDto) {
+        this.customerDto = customerDto;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectDto{" +
+                "code='" + code + '\'' +
+                ", currency='" + currency + '\'' +
+                ", salesState=" + salesState +
+                ", salesStateText='" + salesStateText + '\'' +
+                ", title='" + title + '\'' +
+                ", id=" + id +
+                ", customerDto=" + customerDto +
+                '}';
     }
 }
