@@ -17,4 +17,5 @@ export interface ProjectDto {
 
 export interface Project extends ProjectDto {
   isSelected: boolean;
+  isFavorite: boolean;
 }

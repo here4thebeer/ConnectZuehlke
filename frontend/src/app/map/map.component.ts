@@ -2,7 +2,6 @@ import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-map',
@@ -26,6 +25,11 @@ export class MapComponent implements OnInit {
         this.lng = location.geometry.location.lng();
       });
     this.getProjects();
+  }
+
+  public onFavorite(event, project: Project) {
+    event.stopPropagation();
+    project.isFavorite = !project.isFavorite;
   }
 
   public selectProject(project: Project) {

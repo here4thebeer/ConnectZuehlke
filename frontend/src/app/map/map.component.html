@@ -1,6 +1,6 @@
   <mat-drawer-container class="map-container">
     <mat-drawer mode="side" opened class="project-list">
-      <h2>Projects</h2>
+      <h2>Projects ({{getProjectsList().length}})</h2>
       <mat-card *ngFor="let project of getProjectsList()" (click)="redirectToProjectURL(project)">
         <mat-card-header>
           <img mat-card-avatar class="project-logo" [src]="project.logoURL">
@@ -22,6 +22,9 @@
           <div class="project-detail-item">
             <mat-icon>people_outline</mat-icon>
             <div> {{ project.amountOfEmployees }} </div>
+            <button [ngClass]="{'button-favorite':project.isFavorite, 'button-not-favorite':!project.isFavorite}" mat-mini-fab (click)="onFavorite($event, project)">
+              <mat-icon>favorite</mat-icon>
+            </button>
           </div>
         </mat-card-content>
       </mat-card>
