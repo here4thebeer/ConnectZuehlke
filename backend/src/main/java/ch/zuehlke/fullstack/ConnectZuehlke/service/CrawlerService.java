@@ -30,9 +30,8 @@ public class CrawlerService {
     private final InsightSkillRepository insightSkillRepository;
 
     private final ProjectRepository projectRepository;
-    private final CustomerRepository customerRepository;
 
-    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService, InsightSkillService insightSkillService, InsightSkillRepository insightSkillRepository, ProjectRepository projectRepository, CustomerRepository customerRepository) {
+    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService, InsightSkillService insightSkillService, InsightSkillRepository insightSkillRepository, ProjectRepository projectRepository) {
         this.insightProjectRepository = insightProjectRepository;
         this.insightProjectService = insightProjectService;
         this.insightCustomerRepository = insightCustomerRepository;
@@ -42,7 +41,6 @@ public class CrawlerService {
         this.insightSkillService = insightSkillService;
         this.insightSkillRepository = insightSkillRepository;
         this.projectRepository = projectRepository;
-        this.customerRepository = customerRepository;
     }
 
     public void crawlInsight() {
