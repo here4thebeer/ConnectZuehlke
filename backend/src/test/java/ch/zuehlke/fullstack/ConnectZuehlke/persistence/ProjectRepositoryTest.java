@@ -1,5 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.persistence;
 
+import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import ch.zuehlke.fullstack.ConnectZuehlke.service.CrawlerService;
 import org.junit.Before;
@@ -32,5 +33,11 @@ public class ProjectRepositoryTest {
     public void test() {
         List<Project> all = projectRepository.getAll();
         assertEquals(all.size(), 3);
+    }
+
+    @Test
+    public void test_employees() {
+        long count = projectRepository.getEmployeeCount("C20098");
+        System.out.println(count);
     }
 }

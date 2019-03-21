@@ -27,7 +27,7 @@ public class ProjectMapper implements RowMapper<Project> {
                 null,
                 projectCode,
                 null,
-                Lists.newArrayList(),
+                null,
                 createPictureUrl(projectCode),
                 createLogoUrl(customerId),
                 createProjectUrl(projectCode),

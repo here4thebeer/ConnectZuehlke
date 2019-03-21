@@ -26,4 +26,9 @@ public class InsightCustomerServiceMocked implements InsightCustomerService {
     public List<CustomerDto> getCustomers() {
         return CUSTOMERS;
     }
+
+    @Override
+    public CustomerDto getForId(Integer customerId) {
+        return null;
+    }
 }

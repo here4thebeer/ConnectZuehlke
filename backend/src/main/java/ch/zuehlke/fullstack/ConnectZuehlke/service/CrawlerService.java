@@ -6,10 +6,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.customer.Insight
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.InsightProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.skill.InsightSkillService;
-import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightCustomerRepository;
-import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightEmployeeRepository;
-import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightProjectRepository;
-import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightSkillRepository;
+import ch.zuehlke.fullstack.ConnectZuehlke.persistence.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,7 +29,10 @@ public class CrawlerService {
     private final InsightSkillService insightSkillService;
     private final InsightSkillRepository insightSkillRepository;
 
-    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService, InsightSkillService insightSkillService, InsightSkillRepository insightSkillRepository) {
+    private final ProjectRepository projectRepository;
+    private final CustomerRepository customerRepository;
+
+    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService, InsightSkillService insightSkillService, InsightSkillRepository insightSkillRepository, ProjectRepository projectRepository, CustomerRepository customerRepository) {
         this.insightProjectRepository = insightProjectRepository;
         this.insightProjectService = insightProjectService;
         this.insightCustomerRepository = insightCustomerRepository;
@@ -41,34 +41,44 @@ public class CrawlerService {
         this.insightEmployeeService = insightEmployeeService;
         this.insightSkillService = insightSkillService;
         this.insightSkillRepository = insightSkillRepository;
+        this.projectRepository = projectRepository;
+        this.customerRepository = customerRepository;
     }
 
     public void crawlInsight() {
-        List<ProjectDto> projects = insightProjectService.getProjectDtos();
-        log.info("Loaded {} projects", projects.size());
-        insightProjectRepository.saveAll(projects);
 
-        List<CustomerDto> customers = insightCustomerService.getCustomers();
-        log.info("Loaded {} customers", customers.size());
-        insightCustomerRepository.saveAll(customers);
+        if (!projectRepository.hasRows()) {
+            List<ProjectDto> projects = insightProjectService.getProjectDtos();
+            log.info("Loaded {} projects", projects.size());
+            insightProjectRepository.saveAll(projects);
 
+            Flux.fromStream(projects.stream())
+                    .parallel()
+                    .runOn(Schedulers.parallel())
+                    .map(ProjectDto::getCode)
+                    .map(insightEmployeeService::getForProject)
+                    .filter(Objects::nonNull)
+                    .filter(employeeDtos -> !employeeDtos.isEmpty())
+                    .subscribe(insightEmployeeRepository::saveAll);
 
-        Flux.fromStream(projects.stream())
-                .parallel()
-                .runOn(Schedulers.parallel())
-                .map(ProjectDto::getCode)
-                .map(insightEmployeeService::getForProject)
-                .filter(Objects::nonNull)
-                .filter(employeeDtos -> !employeeDtos.isEmpty())
-                .subscribe(insightEmployeeRepository::saveAll);
+            Flux.fromStream(projects.stream())
+                    .parallel()
+                    .runOn(Schedulers.parallel())
+                    .map(ProjectDto::getCode)
+                    .map(insightSkillService::getForProject)
+                    .filter(Objects::nonNull)
+                    .filter(skillDtos -> !skillDtos.isEmpty())
+                    .subscribe(insightSkillRepository::saveAll);
 
-        Flux.fromStream(projects.stream())
-                .parallel()
-                .runOn(Schedulers.parallel())
-                .map(ProjectDto::getCode)
-                .map(insightSkillService::getForProject)
-                .filter(Objects::nonNull)
-                .filter(skillDtos -> !skillDtos.isEmpty())
-                .subscribe(insightSkillRepository::saveAll);
+            Flux.fromStream(projects.stream())
+                    .parallel()
+                    .runOn(Schedulers.parallel())
+                    .map(ProjectDto::getCustomerId)
+                    .map(insightCustomerService::getForId)
+                    .filter(Objects::nonNull)
+                    .subscribe(insightCustomerRepository::save);
+
+        }
+
     }
 }

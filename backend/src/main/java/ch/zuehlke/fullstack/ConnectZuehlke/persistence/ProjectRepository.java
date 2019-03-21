@@ -20,13 +20,25 @@ public class ProjectRepository {
 
         projects.forEach(project -> {
             Long employeeCount = getEmployeeCount(project.getProjectCode());
+            List<String> skills = getSkillsForProject(project.getProjectCode());
             project.setAmountOfEmployees(employeeCount.intValue());
+            project.setSkills(skills);
         });
         return projects;
     }
 
+    public boolean hasRows() {
+        String query = "SELECT count(*) FROM PROJECT_DTO";
+        Long count = jdbcTemplate.query(query, new SingleColumnRowMapper<Long>()).get(0);
+        return count > 0;
+    }
 
-    private long getEmployeeCount(String projectCode) {
+    private List<String> getSkillsForProject(String projectCode) {
+        String query = "SELECT name FROM SKILL_DTO WHERE project_code = '" + projectCode + "'" ;
+        return jdbcTemplate.query(query, new SingleColumnRowMapper<>());
+    }
+
+    public long getEmployeeCount(String projectCode) {
         String query = "SELECT count(*) FROM EMPLOYEE_DTO e WHERE e.project_code = '" + projectCode +"'";
         return jdbcTemplate.query(query, new SingleColumnRowMapper<Long>()).get(0);
     }

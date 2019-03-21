@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface InsightCustomerService {
     List<CustomerDto> getCustomers();
+
+    CustomerDto getForId(Integer customerId);
 }

@@ -35,6 +35,8 @@ public class InsightProjectServiceRemote implements InsightProjectService {
         return response.getBody().stream()
                 .filter(projectDto -> projectDto.getCode() != null && projectDto.getCode().startsWith("C"))
                 .filter(projectDto -> projectDto.getTo() != null)
+                .filter(projectDto -> projectDto.getFromDate() != null)
+                .filter(projectDto -> projectDto.getFromDate().isBefore(now()))
                 .filter(projectDto -> projectDto.getTo().isAfter(now()))
                 .filter(projectDto -> projectDto.getCustomerId() != null)
                 .collect(Collectors.toList());

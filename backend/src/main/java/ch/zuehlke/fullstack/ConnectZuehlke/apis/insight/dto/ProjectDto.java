@@ -37,6 +37,9 @@ public class ProjectDto {
     @JsonProperty("To")
     private LocalDateTime to;
 
+    @JsonProperty("From")
+    private LocalDateTime fromDate;
+
 
     public ProjectDto() {
         // JPA constructor
@@ -119,6 +122,14 @@ public class ProjectDto {
 
     public void setTo(LocalDateTime to) {
         this.to = to;
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDateTime fromDate) {
+        this.fromDate = fromDate;
     }
 
     @Override

@@ -66,6 +66,10 @@ public class Project implements Serializable {
         return skills;
     }
 
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
     public String getPictureURL() {
         return pictureURL;
     }
