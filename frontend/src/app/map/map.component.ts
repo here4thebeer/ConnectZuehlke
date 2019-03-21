@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 export class MapComponent implements OnInit {
   lat: number;
   lng: number;
-  zoom = 9;
+  zoom = 8;
   projects: Project[];
 
   constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
