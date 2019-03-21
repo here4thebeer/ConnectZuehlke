@@ -4,7 +4,7 @@
       <mat-card *ngFor="let project of getProjectsList()" (click)="redirectToProjectURL(project)">
         <mat-card-header>
           <img mat-card-avatar class="project-logo" [src]="project.logoURL">
-          <span>{{ project.title }}</span>
+          <h4>{{ project.title }}</h4>
         </mat-card-header>
         <mat-card-content>
           <div class="project-detail-item">
