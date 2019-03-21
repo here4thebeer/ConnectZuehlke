@@ -1,3 +1,4 @@
+import { LatLngBounds, LatLng } from '@agm/core';
 import { FilterOptions, NumberOfEmployees, ProjectFilterSelection } from './project-filter/project-filter';
 import { Injectable } from '@angular/core';
 import { Project } from './domain/Project';
@@ -23,7 +24,27 @@ export class ProjectFilterService {
     } as FilterOptions;
   }
 
-  filterProjects(projects: Project[], filterSelection: ProjectFilterSelection): Project[] {
+  filter(projects: Project[], latLngBounds: LatLngBounds, filterSelection: ProjectFilterSelection): Project[] {
+    let filteredProjects = projects;
+    if (filterSelection) {
+      filteredProjects = this.filterProjects(filteredProjects, filterSelection);
+    }
+    if (latLngBounds) {
+      filteredProjects = this.filterLatLngNotInBounds(filteredProjects, latLngBounds);
+    }
+    return filteredProjects;
+  }
+
+  private filterLatLngNotInBounds(projects: Project[], latLngBounds: LatLngBounds): Project[] {
+    return projects.filter(p => latLngBounds.contains(
+      {
+        lat: p.location.latitude,
+        lng: p.location.longitude
+      } as unknown as LatLng
+    ));
+  }
+
+  private filterProjects(projects: Project[], filterSelection: ProjectFilterSelection): Project[] {
     let filteredProjects = this.applyFilter(projects, filterSelection.zuehlkeCompany, 'zuehlkeCompany');
     filteredProjects = this.applyFilter(filteredProjects, filterSelection.industry, 'industry');
     filteredProjects = this.applySkillsFilter(filteredProjects, filterSelection.skills);

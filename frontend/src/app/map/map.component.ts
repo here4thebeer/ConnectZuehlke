@@ -1,8 +1,11 @@
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
 import {reject, resolve} from "q";
+import { LatLngBounds } from '@agm/core';
+import { debounce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -20,8 +23,10 @@ export class MapComponent implements OnInit {
   projects: Project[];
   maxAmountOfEmployeesInProject: number;
   showOnlyFavorites = false;
+  mapBounds$: BehaviorSubject<LatLngBounds> = new BehaviorSubject(null);
 
   constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
+    this.projectService.registerMapBoundsObservable(this.mapBounds$);
   }
 
   ngOnInit(): void {
@@ -51,8 +56,18 @@ export class MapComponent implements OnInit {
     this.zoom = newZoomLevel;
   }
 
+  public onBoundsChange(latLng: LatLngBounds) {
+    this.mapBounds$.next(latLng);
+  }
+
+  // public onMapReady(map: google.maps.Map) {
+  //   map.addListener('bounds_changed', (value) => {
+  //     console.log(map.getBounds());
+  //   });
+  // }
+
   public calculateColor(project: Project): string {
-    return project.isFavorite ? "red" : "blue";
+    return project.isFavorite ? 'red' : 'blue';
   }
 
   public calculateRadius(amountOfEmployees: number) {

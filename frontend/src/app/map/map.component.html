@@ -53,7 +53,7 @@
       <div class="secondary-header">
         <app-project-filter></app-project-filter>
       </div>
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()"
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()" (boundsChange)="onBoundsChange($event)"
         (zoomChange)="onZoomChange($event)">
         <div *ngFor="let project of projects">
           <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude"
