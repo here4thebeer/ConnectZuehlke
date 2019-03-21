@@ -1,19 +1,27 @@
   <mat-drawer-container class="map-container">
     <mat-drawer mode="side" opened class="project-list">
       <h2>Projects</h2>
-      <mat-card *ngFor="let project of getProjectsList()">
+      <mat-card *ngFor="let project of getProjectsList()" (click)="redirectToProjectURL(project)">
         <mat-card-header>
           <img mat-card-avatar class="project-logo" [src]="project.logoURL">
-          <!-- <img mat-card-image [src]="project.logoURL" class="project-logo"> -->
           {{ project.title }}
         </mat-card-header>
         <mat-card-content>
           <div class="project-detail-item">
+            <mat-icon>location_on</mat-icon>
+            <div> {{ project.location.street + ', ' + project.location.zip + ' ' + project.location.city }} </div>
+          </div>
+          <div class="project-detail-item">
             <mat-icon>home</mat-icon>
-            <div>
-
-              {{ project.location.street }}
-            </div>
+            <div> {{ project.skills.join(', ') }} </div>
+          </div>
+          <div class="project-detail-item">
+            <mat-icon>business</mat-icon>
+            <div> {{ project.industry }} </div>
+          </div>
+          <div class="project-detail-item">
+            <mat-icon>people_outline</mat-icon>
+            <div> {{ project.amountOfEmployees }} </div>
           </div>
         </mat-card-content>
       </mat-card>
@@ -24,8 +32,8 @@
       </div>
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()">
         <div *ngFor="let project of projects">
-          <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude" [radius]="project.amountOfEmployees * 20"
-            fillColor="red" (circleClick)="selectProject(project)">
+          <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude"
+            [radius]="project.amountOfEmployees * 20" fillColor="red" (circleClick)="selectProject(project)">
           </agm-circle>
         </div>
       </agm-map>

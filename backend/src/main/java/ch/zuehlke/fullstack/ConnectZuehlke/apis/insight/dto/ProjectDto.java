@@ -38,6 +38,16 @@ public class ProjectDto {
         // JPA constructor
     }
 
+    public ProjectDto(String code, String currency, Integer salesState, String salesStateText, String title, Integer id, Integer customerId) {
+        this.code = code;
+        this.currency = currency;
+        this.salesState = salesState;
+        this.salesStateText = salesStateText;
+        this.title = title;
+        this.id = id;
+        this.customerId = customerId;
+    }
+
     public Project toProject() {
         return new Project(title, null);
     }

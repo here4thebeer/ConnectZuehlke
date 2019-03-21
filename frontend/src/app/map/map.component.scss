@@ -18,6 +18,7 @@ agm-map {
     mat-card {
       margin: 20px 10px;
       border-radius: 2px;
+      text-decoration: none;
 
       .project-logo {
         border-radius: 0;
@@ -28,13 +29,17 @@ agm-map {
       .project-detail-item {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        margin: 5px 0;
 
         mat-icon {
           flex: 1;
+          font-size: 20px;
+          height: auto;
         }
 
         div {
-          flex: 5;
+          flex: 7;
         }
       }
     }
