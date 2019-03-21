@@ -51,6 +51,7 @@ public class CrawlerService {
                 .runOn(Schedulers.parallel())
                 .map(ProjectDto::getCode)
                 .map(insightEmployeeService::getForProject)
+                .filter(employeeDtos -> employeeDtos != null)
                 .filter(employeeDtos -> !employeeDtos.isEmpty())
                 .subscribe(employees -> insightEmployeeRepository.saveAll(employees));
 

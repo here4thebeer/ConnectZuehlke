@@ -26,6 +26,10 @@ public class EmployeeDto {
 
     private String projectCode;
 
+    public EmployeeDto() {
+        // JPA constructor
+    }
+
     public EmployeeDto(String firstName, String lastName, int id, String code, String projectCode) {
         this.firstName = firstName;
         this.lastName = lastName;
