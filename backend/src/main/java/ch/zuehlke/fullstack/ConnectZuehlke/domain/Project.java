@@ -45,6 +45,11 @@ public class Project implements Serializable {
         // jpa constructor
     }
 
+    public Project(String title, Location location) {
+        this.title = title;
+        this.location = location;
+    }
+
     public String getTitle() {
         return title;
     }
