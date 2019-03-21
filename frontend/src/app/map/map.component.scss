@@ -72,3 +72,15 @@
   opacity: 0.25;
   margin-top: -15px;
 }
+.container {
+  display: flex;
+  margin-left: 10px;
+}
+
+.fixed {
+  margin: 20px;
+}
+
+.flex-item {
+  flex-grow: 1;
+}

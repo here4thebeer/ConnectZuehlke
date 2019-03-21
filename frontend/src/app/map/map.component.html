@@ -1,6 +1,15 @@
   <mat-drawer-container class="map-container">
     <mat-drawer mode="side" opened class="project-list">
-      <h2>Projects ({{getProjectsList().length}})</h2>
+      <div class="container">
+        <div class="flex-item">
+          <h2>Projects ({{getProjectsList().length}})</h2>
+        </div>
+        <div class="fixed">
+          <button mat-mini-fab matTooltip="Show only projects on the whishlist" [ngClass]="{'button-favorite':showOnlyFavorites, 'button-not-favorite':!showOnlyFavorites}" matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after" matBadgeColor="primary" (click)="onFavorites()">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </div>
+      </div>
       <mat-card *ngFor="let project of getProjectsList()" (click)="redirectToProjectURL(project)">
         <mat-card-header>
           <img mat-card-avatar class="project-logo" [src]="project.logoURL">

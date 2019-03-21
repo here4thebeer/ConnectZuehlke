@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   zoom = 8;
   projects: Project[];
   maxAmountOfEmployeesInProject: number;
+  showOnlyFavorites = false;
 
   constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
   }
@@ -64,9 +65,21 @@ export class MapComponent implements OnInit {
   }
 
   public getProjectsList(): Project[] {
-    return this.projects && this.projects.some(p => p.isSelected)
-      ? [this.projects.find(p => p.isSelected)]
-      : this.projects;
+    if (this.showOnlyFavorites) {
+      return this.projects.filter(p => p.isFavorite);
+    } else {
+      return this.projects && this.projects.some(p => p.isSelected)
+        ? [this.projects.find(p => p.isSelected)]
+        : this.projects;
+    }
+  }
+
+  public onFavorites(): void {
+    this.showOnlyFavorites = !this.showOnlyFavorites;
+  }
+
+  public getFavoriteProjectsList(): Project[] {
+    return this.getProjectsList().filter(p => p.isFavorite);
   }
 
   public redirectToProjectURL(project: Project) {
