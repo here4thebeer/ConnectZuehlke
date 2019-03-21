@@ -1,11 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.customer;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.CustomerDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ListDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectEmployeeDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,7 +11,6 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpMethod.GET;
 

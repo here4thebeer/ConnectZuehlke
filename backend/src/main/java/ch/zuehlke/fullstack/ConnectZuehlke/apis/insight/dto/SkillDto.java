@@ -21,6 +21,8 @@ public class SkillDto {
 
     private String name;
 
+    private Boolean isManagedSkill;
+
     public SkillDto() {
     }
 
@@ -31,7 +33,8 @@ public class SkillDto {
 
     @JsonProperty("Skill")
     private void unpackSkillNameFromNestedObject(JsonNode skill) {
-        name = skill.get("Name").toString();
+        name = skill.get("Name").asText();
+        isManagedSkill = skill.get("IsManagedSkill").asBoolean();
     }
 
     public Integer getId() {
@@ -52,5 +55,13 @@ public class SkillDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getManagedSkill() {
+        return isManagedSkill;
+    }
+
+    public void setManagedSkill(Boolean managedSkill) {
+        isManagedSkill = managedSkill;
     }
 }
