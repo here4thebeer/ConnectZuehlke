@@ -1,7 +1,9 @@
+import { ProjectFilterService } from './project-filter.service';
+import { ProjectFilterSelection } from './project-filter/project-filter';
 import { Project } from './domain/Project';
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +11,7 @@ export class ProjectService {
   projects: Project[];
   currentRelevantProjects$: BehaviorSubject<Project[]> = new BehaviorSubject([]);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private projectFilterService: ProjectFilterService) {
     this.http
       .get<Project[]>('/api/projects')
       .pipe(
@@ -23,9 +25,9 @@ export class ProjectService {
     return this.currentRelevantProjects$;
   }
 
-  // applyIndustryFilter(industry: string) {
-  //   this.relevantProjects$.next(this.projects.filter(p => p.industry === industry));
-  // }
+  applyFilter(filterSelection: ProjectFilterSelection) {
+    this.currentRelevantProjects$.next(this.projectFilterService.filterProjects(this.projects, filterSelection));
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

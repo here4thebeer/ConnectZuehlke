@@ -69,6 +69,18 @@
 .button-not-favorite {
   background-color: gray;
   color: black;
-  opacity: 0.25;
+  opacity: 0.5;
   margin-top: -15px;
+}
+.container {
+  display: flex;
+  margin-left: 10px;
+}
+
+.fixed {
+  margin: 20px;
+}
+
+.flex-item {
+  flex-grow: 1;
 }
