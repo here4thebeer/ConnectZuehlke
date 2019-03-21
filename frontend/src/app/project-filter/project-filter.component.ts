@@ -3,6 +3,8 @@ import {
   MatSnackBar,
   MatSnackBarConfig
 } from '@angular/material';
+import {ProjectService} from "../project.service";
+import {Project} from "../domain/Project";
 
 @Component({
   selector: 'app-project-filter',
@@ -11,23 +13,20 @@ import {
 })
 export class ProjectFilterComponent implements OnInit {
 
-  companies: any = [
-    {
-      'a': 1
-    },
-    {
-      'a': 2
-    },
-    {
-      'a': 3
-    }
-  ];
+  projects: Project[];
+  companies: Set<string>;
+  industries: Set<string>;
+  skills: Set<string>;
+  distributionValues: Set<boolean>;
+  employeeNumbers: Set<number>;
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
-
+    this.getProjects();
   }
 
   public openSnackBar(): void {
@@ -35,7 +34,22 @@ export class ProjectFilterComponent implements OnInit {
     config.verticalPosition = 'bottom';
     config.horizontalPosition = 'center';
     config.duration = 5000;
-    this.snackBar.open('Subscribed for project notifications', 'Thanks', config);
+    this.snackBar.open('You will be notified about new projects', 'Thanks', config);
+  }
+
+  private getProjects() {
+    this.projectService
+      .getProjects()
+      .subscribe(projects => {
+        this.projects = projects;
+        this.companies = new Set(this.projects.map(project => project.zuehlkeCompany));
+        this.industries = new Set(this.projects.map(project => project.industry));
+        this.distributionValues = new Set(this.projects.map(project => project.distributed));
+        let mergedSkills: string[][] = [];
+        this.projects.forEach(project => mergedSkills.push(project.skills));
+        this.skills = new Set(mergedSkills.flat(1));
+        this.employeeNumbers = new Set(this.projects.map(project => project.amountOfEmployees));
+      });
   }
 
 }
