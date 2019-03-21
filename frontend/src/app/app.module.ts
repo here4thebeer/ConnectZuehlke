@@ -16,15 +16,16 @@ import {SearchPipe} from './search.pipe';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MatBadgeModule,
   MatButtonModule,
+  MatCardModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatToolbarModule,
-  MatCardModule, MatBadgeModule,
+  MatToolbarModule
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -34,13 +35,30 @@ import {MapComponent} from './map/map.component';
 import {AgmCoreModule} from '@agm/core';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
 import {ProjectFilterComponent} from './project-filter/project-filter.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
+import * as SockJS from 'sockjs-client';
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
 library.add(faHeart);
 library.add(faJava);
 library.add(faAngular);
 
+
+function socketProvider() {
+  return new SockJS('http://localhost:8080/socket');
+}
+
+const stompConfig: InjectableRxStompConfig = {
+  webSocketFactory: socketProvider,
+  connectHeaders: {},
+  heartbeatIncoming: 0,
+  heartbeatOutgoing: 20000,
+  reconnectDelay: 5000,
+  debug: (msg: string): void => {
+    console.log(new Date(), msg);
+  }
+};
 
 @NgModule({
   declarations: [
@@ -80,6 +98,15 @@ library.add(faAngular);
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: ErrorRequestInterceptor, multi: true
+    },
+    {
+      provide: InjectableRxStompConfig,
+      useValue: stompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
     }
   ],
   bootstrap: [AppComponent]
