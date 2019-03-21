@@ -1,7 +1,8 @@
 import { ProjectService } from '../project.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-map',
@@ -27,9 +28,16 @@ export class MapComponent implements OnInit {
     this.getProjects();
   }
 
-  public handleClickProject(project: Project) {
-    console.log(project);
-    project.showDetail = !project.showDetail;
+  public selectProject(project: Project) {
+    project.isSelected = true;
+  }
+
+  public resetProjectSelection() {
+    this.projects.forEach(p => p.isSelected = false);
+  }
+
+  public getProjectsList(): Project[] {
+    return this.projects && this.projects.some(p => p.isSelected) ? [this.projects.find(p => p.isSelected)] : this.projects;
   }
 
   private getProjects() {

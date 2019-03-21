@@ -1,3 +1,46 @@
 agm-map {
-  height: calc(100% - 64px);
+  height: calc(100% - 104px);
+}
+
+.map-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .secondary-header {
+    height: 40px;
+  }
+
+  .project-list {
+    width: 450px;
+    height: calc(100% - 64px);
+
+    mat-card {
+      margin: 20px 10px;
+      border-radius: 2px;
+
+      .project-logo {
+        border-radius: 0;
+        height: 50px;
+        width: auto;
+      }
+
+      .project-detail-item {
+        display: flex;
+        flex-direction: row;
+
+        mat-icon {
+          flex: 1;
+        }
+
+        div {
+          flex: 5;
+        }
+      }
+    }
+
+    h2 {
+      margin: 20px;
+    }
+  }
 }
