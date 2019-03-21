@@ -6,6 +6,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectCustomerDetai
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class ProjectServiceRemote implements ProjectService {
         this.insightRestTemplate = insightRestTemplate;
     }
 
+    @Override
+    @Cacheable("projects")
     public List<Project> getProjects() {
         ResponseEntity<List<ProjectDto>> response =
                 this.insightRestTemplate

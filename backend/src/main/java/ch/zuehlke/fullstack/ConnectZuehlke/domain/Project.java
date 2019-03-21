@@ -1,6 +1,9 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
-public class Project {
+import java.io.Serializable;
+import java.util.StringJoiner;
+
+public class Project implements Serializable {
 
     private String title;
     private Location location;
@@ -18,4 +21,11 @@ public class Project {
         return location;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Project.class.getSimpleName() + "[", "]")
+                .add("title='" + title + "'")
+                .add("location=" + location)
+                .toString();
+    }
 }

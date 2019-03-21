@@ -1,6 +1,9 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
-public class Location {
+import java.io.Serializable;
+import java.util.StringJoiner;
+
+public class Location implements Serializable {
 
     private String street;
     private String city;
@@ -42,4 +45,15 @@ public class Location {
         return latitude;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Location.class.getSimpleName() + "[", "]")
+                .add("street='" + street + "'")
+                .add("city='" + city + "'")
+                .add("zip=" + zip)
+                .add("country='" + country + "'")
+                .add("longitude=" + longitude)
+                .add("latitude=" + latitude)
+                .toString();
+    }
 }
