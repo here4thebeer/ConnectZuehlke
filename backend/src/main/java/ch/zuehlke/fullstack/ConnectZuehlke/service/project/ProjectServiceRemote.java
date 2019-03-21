@@ -1,12 +1,10 @@
-package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project;
+package ch.zuehlke.fullstack.ConnectZuehlke.service.project;
 
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.CustomerDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectCustomerDetailDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.project.ProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;

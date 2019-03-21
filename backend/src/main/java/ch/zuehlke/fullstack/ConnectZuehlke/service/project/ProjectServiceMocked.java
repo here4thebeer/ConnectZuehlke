@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project;
+package ch.zuehlke.fullstack.ConnectZuehlke.service.project;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Location;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;

@@ -4,9 +4,14 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @JsonIgnoreProperties
+@Entity
 public class CustomerDto {
     @JsonProperty("Id")
+    @Id
     private Integer id;
     @JsonProperty("Name")
     private String name;
@@ -23,6 +28,19 @@ public class CustomerDto {
     @JsonProperty("Latitude")
     private Double latitude;
 
+    public CustomerDto() {
+    }
+
+    public CustomerDto(Integer id, String name, String street, String city, String country, Integer zip, Double longitude, Double latitude) {
+        this.id = id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.country = country;
+        this.zip = zip;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 
     public Integer getId() {
         return id;

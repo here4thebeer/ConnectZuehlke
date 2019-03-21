@@ -1,6 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.ProjectService;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.project.ProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Location;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.junit.Test;

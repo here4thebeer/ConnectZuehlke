@@ -1,10 +1,8 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
 public class Project implements Serializable {
 
     private String title;
