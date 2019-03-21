@@ -1,4 +1,8 @@
 import {Component, OnInit} from "@angular/core";
+import {
+  MatSnackBar,
+  MatSnackBarConfig
+} from '@angular/material';
 
 @Component({
   selector: 'app-project-filter',
@@ -19,9 +23,19 @@ export class ProjectFilterComponent implements OnInit {
     }
   ];
 
+  constructor(public snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
 
+  }
+
+  public openSnackBar(): void {
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = 'bottom';
+    config.horizontalPosition = 'center';
+    config.duration = 5000;
+    this.snackBar.open('Subscribed for project notifications', 'Thanks', config);
   }
 
 }
