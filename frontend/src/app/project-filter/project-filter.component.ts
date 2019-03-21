@@ -18,7 +18,7 @@ export class ProjectFilterComponent implements OnInit {
   industries: Set<string>;
   skills: Set<string>;
   distributionValues: Set<boolean>;
-  employeeNumbers: Set<number>;
+  employeeNumbers: NumberOfEmployees[] = [NumberOfEmployees.LessOrEqualThan5, NumberOfEmployees.LessOrEqualThan10, NumberOfEmployees.LessOrEqualThan50, NumberOfEmployees.LessOrEqualThan100, NumberOfEmployees.MoreThan100];
 
   constructor(
     private snackBar: MatSnackBar,
@@ -48,8 +48,15 @@ export class ProjectFilterComponent implements OnInit {
         let mergedSkills: string[][] = [];
         this.projects.forEach(project => mergedSkills.push(project.skills));
         this.skills = new Set(mergedSkills.flat(1));
-        this.employeeNumbers = new Set(this.projects.map(project => project.amountOfEmployees));
       });
   }
 
+}
+
+enum NumberOfEmployees {
+  LessOrEqualThan5 = "<= 5",
+  LessOrEqualThan10 = "<= 10",
+  LessOrEqualThan50 = "<= 50",
+  LessOrEqualThan100 = "<= 100",
+  MoreThan100 = "> 100"
 }
