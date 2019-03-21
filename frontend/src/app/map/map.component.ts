@@ -9,10 +9,15 @@ import { Project } from '../domain/Project';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+
+  readonly MIN_ZOOM: number = 1;
+  readonly MAX_ZOOM: number = 22;
+
   lat: number;
   lng: number;
   zoom = 8;
   projects: Project[];
+  maxAmountOfEmployeesInProject: number;
 
   constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
   }
@@ -40,8 +45,22 @@ export class MapComponent implements OnInit {
     this.projects.forEach(p => p.isSelected = false);
   }
 
+  public onZoomChange(newZoomLevel) {
+    this.zoom = newZoomLevel;
+    console.log(this.zoom);
+  }
+
+  public calculateRadius(amountOfEmployees: number) {
+    const newRadius = Math.floor(2 ** (this.MAX_ZOOM - this.zoom) / 2);
+    // TODO yast: consider amount of employees
+     //  * (amountOfEmployees / this.maxAmountOfEmployeesInProject));
+    return newRadius;
+  }
+
   public getProjectsList(): Project[] {
-    return this.projects && this.projects.some(p => p.isSelected) ? [this.projects.find(p => p.isSelected)] : this.projects;
+    return this.projects && this.projects.some(p => p.isSelected)
+      ? [this.projects.find(p => p.isSelected)]
+      : this.projects;
   }
 
   public redirectToProjectURL(project: Project) {
@@ -52,8 +71,8 @@ export class MapComponent implements OnInit {
     this.projectService
       .getProjects()
       .subscribe(projects => {
-        console.log(projects);
         this.projects = projects;
+        this.maxAmountOfEmployeesInProject = Math.max(...this.projects.map(p => p.amountOfEmployees));
       });
   }
 }

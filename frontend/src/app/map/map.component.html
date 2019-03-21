@@ -33,10 +33,15 @@
       <div class="secondary-header">
         <app-project-filter></app-project-filter>
       </div>
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+               (mapClick)="resetProjectSelection()"
+               (zoomChange)="onZoomChange($event)">
         <div *ngFor="let project of projects">
-          <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude"
-            [radius]="project.amountOfEmployees * 20" fillColor="red" (circleClick)="selectProject(project)">
+          <agm-circle [latitude]="project.location.latitude"
+                      [longitude]="project.location.longitude"
+                      [radius]="calculateRadius(project.amountOfEmployees)"
+                      (circleClick)="selectProject(project)"
+                      fillColor="red">
           </agm-circle>
         </div>
       </agm-map>
