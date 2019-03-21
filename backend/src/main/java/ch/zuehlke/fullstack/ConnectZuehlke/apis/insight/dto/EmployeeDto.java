@@ -5,11 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @JsonIgnoreProperties
 @Entity
 public class EmployeeDto {
+
+    @Id
+    @GeneratedValue
+    private int generatedId;
 
     @JsonProperty("FirstName")
     private String firstName;
@@ -20,7 +25,7 @@ public class EmployeeDto {
     @JsonProperty("Id")
     private int id;
 
-    @Id
+
     @JsonProperty("Code")
     private String code;
 
