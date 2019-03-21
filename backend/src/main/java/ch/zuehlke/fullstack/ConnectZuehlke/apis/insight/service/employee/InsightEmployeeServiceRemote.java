@@ -39,7 +39,11 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
                     this.restTemplate
                             .exchange(url, GET, null, new ParameterizedTypeReference<List<ProjectEmployeeDto>>() {
                             });
-            return response.getBody().stream().map(ProjectEmployeeDto::getEmployeeDto).collect(Collectors.toList());
+            List<EmployeeDto> employeeDtos = response.getBody().stream()
+                    .map(ProjectEmployeeDto::getEmployeeDto)
+                    .collect(Collectors.toList());
+            employeeDtos.forEach(employeeDto -> employeeDto.setProjectCode(projectCode));
+            return employeeDtos;
 
         } catch (HttpServerErrorException e) {
             System.out.println(url);
