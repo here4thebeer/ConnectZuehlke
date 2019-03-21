@@ -2,6 +2,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.ProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
+import ch.zuehlke.fullstack.ConnectZuehlke.persistence.ProjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ import java.util.List;
 public class ConnectZuehlkeApplication implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(ConnectZuehlkeApplication.class);
 
+    private final ProjectRepository projectRepository;
     private final ProjectService projectService;
 
     @Autowired
-    public ConnectZuehlkeApplication(ProjectService projectService) {
+    public ConnectZuehlkeApplication(ProjectRepository projectRepository, ProjectService projectService) {
+        this.projectRepository = projectRepository;
         this.projectService = projectService;
     }
 
@@ -35,6 +38,7 @@ public class ConnectZuehlkeApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         List<Project> projects = projectService.getProjects();
         log.info("Loaded {} projects", projects.size());
+        projectRepository.saveAll(projects);
     }
 }
 
