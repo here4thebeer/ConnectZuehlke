@@ -20,14 +20,14 @@ repositories {
 dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    //implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.apache.httpcomponents:httpclient'
 
-    compile 'com.hazelcast:hazelcast'
-    compile 'com.hazelcast:hazelcast-spring'
+    //compile 'com.hazelcast:hazelcast'
+    //compile 'com.hazelcast:hazelcast-spring'
 
-    compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    //compile 'io.springfox:springfox-swagger2:2.9.2'
+    //compile 'io.springfox:springfox-swagger-ui:2.9.2'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'commons-io:commons-io:2.6'
