@@ -12,6 +12,8 @@ import java.sql.SQLException;
 public class ProjectMapper implements RowMapper<Project> {
     @Override
     public Project mapRow(ResultSet rs, int rowNum) throws SQLException {
+        String projectCode = rs.getString("CODE");
+        Integer customerId = rs.getInt("CUSTOMER_ID");
         return new Project(
                 rs.getString("TITLE"),
                 new Location(
@@ -23,15 +25,27 @@ public class ProjectMapper implements RowMapper<Project> {
                         rs.getFloat("LATITUDE")
                 ),
                 null,
-                rs.getString("CODE"),
+                projectCode,
                 null,
                 Lists.newArrayList(),
-                null,
-                null,
-                null,
+                createPictureUrl(projectCode),
+                createLogoUrl(customerId),
+                createProjectUrl(projectCode),
                 0,
                 false,
                 null
         );
+    }
+
+    private String createLogoUrl(int customerId) {
+        return "/api/v1/customers/"+customerId+"/logo";
+    }
+
+    private String createPictureUrl(String projectCode) {
+        return "/api/v1/projects/" + projectCode + "/picture";
+    }
+
+    private String createProjectUrl(String projectCode) {
+        return "/projects/" + projectCode;
     }
 }
