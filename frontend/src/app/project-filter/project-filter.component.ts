@@ -19,6 +19,13 @@ export class ProjectFilterComponent implements OnInit {
   skills: Set<string>;
   distributionValues: Set<boolean>;
   employeeNumbers: NumberOfEmployees[] = [NumberOfEmployees.LessOrEqualThan5, NumberOfEmployees.LessOrEqualThan10, NumberOfEmployees.LessOrEqualThan50, NumberOfEmployees.LessOrEqualThan100, NumberOfEmployees.MoreThan100];
+  filterSelection: FilterSelection = {
+    selectedCompanies: [],
+    selectedIndustries: [],
+    selectedEmployeeNumber: undefined,
+    selectedSkills: [],
+    selectedDistribution: []
+  };
 
   constructor(
     private snackBar: MatSnackBar,
@@ -35,6 +42,7 @@ export class ProjectFilterComponent implements OnInit {
     config.horizontalPosition = 'center';
     config.duration = 5000;
     this.snackBar.open('You will be notified about new projects', 'Thanks', config);
+    console.log(this.filterSelection);
   }
 
   private getProjects() {
@@ -51,6 +59,15 @@ export class ProjectFilterComponent implements OnInit {
       });
   }
 
+}
+
+
+interface FilterSelection {
+  selectedCompanies: string[];
+  selectedIndustries: string[];
+  selectedSkills: string[];
+  selectedEmployeeNumber: NumberOfEmployees;
+  selectedDistribution: boolean[];
 }
 
 enum NumberOfEmployees {
