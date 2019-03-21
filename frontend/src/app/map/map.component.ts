@@ -1,11 +1,9 @@
-import { Observable, BehaviorSubject, timer } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
-import {reject, resolve} from "q";
 import { LatLngBounds } from '@agm/core';
-import { debounce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -60,12 +58,6 @@ export class MapComponent implements OnInit {
     this.mapBounds$.next(latLng);
   }
 
-  // public onMapReady(map: google.maps.Map) {
-  //   map.addListener('bounds_changed', (value) => {
-  //     console.log(map.getBounds());
-  //   });
-  // }
-
   public calculateColor(project: Project): string {
     return project.isFavorite ? 'red' : 'blue';
   }
@@ -113,7 +105,7 @@ export class MapComponent implements OnInit {
   }
 
   private loadDistance(project: Project) {
-    if (project.zuehlkeCompany !== "Zühlke Switzerland") {
+    if (project.zuehlkeCompany !== 'Zühlke Switzerland') {
       this.geocodeService.route(project.location).then(direction => {
         project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
         project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);

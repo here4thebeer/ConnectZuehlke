@@ -23,7 +23,7 @@ export class ProjectService {
       .get<Project[]>('/api/projects')
       .pipe(
         catchError(this.handleError<Project[]>('getProjects', [])),
-        map(p => p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees).slice(0, 100)),
+        map(p => p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees)),
         tap(p => this.projects = p),
         tap(p => this.currentRelevantProjects$.next(p)),
       ).subscribe();
