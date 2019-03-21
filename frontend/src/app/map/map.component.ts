@@ -49,6 +49,10 @@ export class MapComponent implements OnInit {
     this.zoom = newZoomLevel;
   }
 
+  public calculateColor(project: Project): string {
+    return project.isFavorite ? "red" : "blue";
+  }
+
   public calculateRadius(amountOfEmployees: number) {
     const minRadius = 0.5;
     const amountOfEmployeesFactor = (amountOfEmployees / this.maxAmountOfEmployeesInProject) > minRadius

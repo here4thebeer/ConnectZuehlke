@@ -41,7 +41,7 @@
                       [longitude]="project.location.longitude"
                       [radius]="calculateRadius(project.amountOfEmployees)"
                       (circleClick)="selectProject(project)"
-                      fillColor="red">
+                      [fillColor]="calculateColor(project)">
           </agm-circle>
         </div>
       </agm-map>
