@@ -1,7 +1,7 @@
-import {ProjectService} from '../project.service';
-import {Component, OnInit} from '@angular/core';
-import {GeocodeService} from '../geocode.service';
-import {Project} from '../domain/Project';
+import { ProjectService } from '../project.service';
+import { Component, OnInit } from '@angular/core';
+import { GeocodeService } from '../geocode.service';
+import { Project } from '../domain/Project';
 
 @Component({
   selector: 'app-map',
