@@ -90,6 +90,10 @@ public class Project implements Serializable {
         return projectDescription;
     }
 
+    public void setAmountOfEmployees(int amountOfEmployees) {
+        this.amountOfEmployees = amountOfEmployees;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
