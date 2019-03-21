@@ -3,21 +3,22 @@ import { ProjectFilterSelection } from './project-filter/project-filter';
 import { Project } from './domain/Project';
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { GeocodeService } from './geocode.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
   projects: Project[];
   currentRelevantProjects$: BehaviorSubject<Project[]> = new BehaviorSubject([]);
 
-  constructor(private http: HttpClient, private projectFilterService: ProjectFilterService) {
+  constructor(private http: HttpClient, private projectFilterService: ProjectFilterService, private geocodeService: GeocodeService) {
     this.http
       .get<Project[]>('/api/projects')
       .pipe(
         catchError(this.handleError<Project[]>('getProjects', [])),
-        tap(p => this.projects = p),
-        tap(p => this.currentRelevantProjects$.next(p)),
+        tap(p => this.projects = p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees).slice(0, 100)),
+        tap(p => this.currentRelevantProjects$.next(p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees).slice(0, 100))),
       ).subscribe();
   }
 
