@@ -1,7 +1,7 @@
-import {ProjectService} from '../project.service';
-import {Component, OnInit} from '@angular/core';
-import {GeocodeService} from '../geocode.service';
-import {Project} from '../domain/Project';
+import { ProjectService } from '../project.service';
+import { Component, OnInit } from '@angular/core';
+import { GeocodeService } from '../geocode.service';
+import { Project } from '../domain/Project';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +18,12 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const countryToFocus = 'Switzerland';
+    this.geocodeService.geocodeFirst(countryToFocus)
+      .then(location => {
+        this.lat = location.geometry.location.lat();
+        this.lng = location.geometry.location.lng();
+      });
     this.getProjects();
   }
 
@@ -32,8 +38,6 @@ export class MapComponent implements OnInit {
       .subscribe(projects => {
         console.log(projects);
         this.projects = projects;
-        this.lng = this.projects[0].location.longitude;
-        this.lat = this.projects[0].location.latitude;
       });
   }
 }
