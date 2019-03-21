@@ -24,16 +24,16 @@ public class ProjectMapper implements RowMapper<Project> {
                         rs.getFloat("LONGITUDE"),
                         rs.getFloat("LATITUDE")
                 ),
-                null,
+                rs.getString("COMPANY"),
                 projectCode,
-                null,
+                rs.getString("INDUSTRY"),
                 null,
                 createPictureUrl(projectCode),
                 createLogoUrl(customerId),
                 createProjectUrl(projectCode),
                 0,
                 false,
-                null
+                rs.getString("DESCRIPTION")
         );
     }
 

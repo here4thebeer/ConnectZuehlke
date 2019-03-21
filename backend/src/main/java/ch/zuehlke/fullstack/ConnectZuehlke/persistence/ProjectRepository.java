@@ -20,7 +20,7 @@ public class ProjectRepository {
     }
 
     public List<Project> getAll() {
-        String query = "SELECT * FROM PROJECT_DTO p JOIN CUSTOMER_DTO c ON p.CUSTOMER_ID = c.ID";
+        String query = "SELECT * FROM PROJECT_DTO p JOIN CUSTOMER_DTO c ON p.CUSTOMER_ID  = c.ID JOIN PROJECT_DETAILS_DTO d ON d.code = p.code";
         return jdbcTemplate.query(query, new ProjectMapper())
                 .stream()
                 .peek(project -> project.setAmountOfEmployees(getEmployeeCount(project.getProjectCode()).intValue()))
