@@ -38,14 +38,14 @@ public class ProjectMapper implements RowMapper<Project> {
     }
 
     private String createLogoUrl(int customerId) {
-        return "/api/v1/customers/"+customerId+"/logo";
+        return "http://insight-test.zuehlke.com/api/v1/customers/"+customerId+"/logo";
     }
 
     private String createPictureUrl(String projectCode) {
-        return "/api/v1/projects/" + projectCode + "/picture";
+        return "http://insight-test.zuehlke.com/api/v1/projects/" + projectCode + "/picture";
     }
 
     private String createProjectUrl(String projectCode) {
-        return "/projects/" + projectCode;
+        return "http://insight-test.zuehlke.com/projects/" + projectCode;
     }
 }
