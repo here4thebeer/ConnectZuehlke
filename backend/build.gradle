@@ -28,6 +28,7 @@ dependencies {
 
     compile 'io.springfox:springfox-swagger2:2.9.2'
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile "io.projectreactor:reactor-core:3.2.6.RELEASE"
 
     compile group: 'com.h2database', name: 'h2', version: '1.0.60'
 

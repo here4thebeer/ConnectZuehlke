@@ -11,7 +11,7 @@ export interface ProjectDto {
   logoURL: string;
   projectURL: string;
   amountOfEmployees: number;
-  isDistributed: boolean;
+  distributed: boolean;
   projectDescription: string;
 }
 
