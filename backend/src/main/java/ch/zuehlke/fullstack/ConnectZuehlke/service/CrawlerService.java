@@ -1,7 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.service;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.CustomerDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.customer.InsightCustomerService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeService;
@@ -11,6 +10,8 @@ import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightProjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
@@ -42,17 +43,14 @@ public class CrawlerService {
         log.info("Loaded {} customers", customers.size());
         insightCustomerRepository.saveAll(customers);
 
-        for (ProjectDto project : projects) {
-            List<EmployeeDto> employees = insightEmployeeService.getForProject(project.getCode());
-            if (employees.isEmpty()) {
-                continue;
-            }
-            //TODO: persist employees with foreign key to project
-            System.out.println(employees);
 
-        }
-
-
+        Flux.fromStream(projects.stream())
+                .parallel()
+                .runOn(Schedulers.parallel())
+                .map(ProjectDto::getCode)
+                .map(insightEmployeeService::getForProject)
+                .filter(employeeDtos -> !employeeDtos.isEmpty())
+                .subscribe(employees -> System.out.println("todo: save employee " + employees)); //TODO: persist employees with foreign key to project
 
 
     }
