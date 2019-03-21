@@ -30,7 +30,6 @@ public class ProjectServiceRemote implements ProjectService {
     }
 
     @Override
-    @Cacheable("projects")
     public List<Project> getProjects() {
         ResponseEntity<List<ProjectDto>> response =
                 this.insightRestTemplate
