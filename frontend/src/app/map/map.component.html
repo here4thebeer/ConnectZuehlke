@@ -24,6 +24,10 @@
             <div> {{ project.location.street + ', ' + project.location.zip + ' ' + project.location.city }} </div>
           </div>
           <div class="project-detail-item">
+            <mat-icon mattooltip="Distance">commute</mat-icon>
+            <div> {{ project.commuteDistance }} km, {{ project.commuteDuration}} min</div>
+          </div>
+          <div class="project-detail-item">
             <mat-icon matTooltip="Needed skills">build</mat-icon>
             <div [matTooltip]="project.skills.join(', ')" matTooltipShowDelay="400">
               {{ project.skills.slice(0, 10).join(', ') }}

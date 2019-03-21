@@ -2,6 +2,7 @@ import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
+import {reject, resolve} from "q";
 
 @Component({
   selector: 'app-map',
@@ -92,6 +93,51 @@ export class MapComponent implements OnInit {
       .subscribe(projects => {
         this.projects = projects;
         this.maxAmountOfEmployeesInProject = Math.max(...this.projects.map(p => p.amountOfEmployees));
+        this.projects.forEach(p => this.loadDistance(p));
       });
   }
+
+  private loadDistance(project: Project) {
+    if (project.zuehlkeCompany !== "Zühlke Switzerland") {
+      this.geocodeService.route(project.location).then(direction => {
+        project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
+        project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
+      }).catch(err => {
+          project.commuteDistance = Number.NaN;
+          project.commuteDuration = Number.NaN;
+        }
+      )
+    } else {
+      this.getCurrentPosition().then(position => {
+        this.geocodeService.route(project.location, position).then(direction => {
+          project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
+          project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
+        }).catch(err => {
+            project.commuteDistance = Number.NaN;
+            project.commuteDuration = Number.NaN;
+          }
+        )
+      });
+    }
+  }
+
+  private getCurrentPosition(): Promise<LatLonCoordinates> {
+    if (window.navigator && window.navigator.geolocation) {
+      return new Promise<LatLonCoordinates>((resolve, reject) => {
+        window.navigator.geolocation.getCurrentPosition(position => {
+          resolve(new LatLonCoordinates(position.coords.latitude, position.coords.longitude));
+        }, error => {
+          reject(new LatLonCoordinates(47.399699, 8.443863));
+        });
+
+      });
+    }
+  }
+
+}
+
+export class LatLonCoordinates {
+  constructor(
+    public latitude: number,
+    public longitude: number) {}
 }
