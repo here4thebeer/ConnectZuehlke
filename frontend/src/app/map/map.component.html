@@ -28,7 +28,7 @@
     </mat-drawer>
     <mat-drawer-content>
       <div class="secondary-header">
-        Filter options...
+        <app-project-filter></app-project-filter>
       </div>
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()">
         <div *ngFor="let project of projects">
