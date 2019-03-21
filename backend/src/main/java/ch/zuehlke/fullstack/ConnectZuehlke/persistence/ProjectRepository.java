@@ -23,7 +23,7 @@ public class ProjectRepository {
         String query = "SELECT * FROM PROJECT_DTO p JOIN CUSTOMER_DTO c ON p.CUSTOMER_ID = c.ID";
         return jdbcTemplate.query(query, new ProjectMapper())
                 .stream()
-                .peek(project -> project.setAmountOfEmployees(getEmployeeCount(project.getProjectCode())))
+                .peek(project -> project.setAmountOfEmployees(getEmployeeCount(project.getProjectCode()).intValue()))
                 .filter(project -> project.getAmountOfEmployees() > 0)
                 .peek(project -> project.setSkills(getSkillsForProject(project.getProjectCode())))
                 .collect(Collectors.toList());
@@ -40,8 +40,8 @@ public class ProjectRepository {
         return jdbcTemplate.query(query, new SingleColumnRowMapper<>());
     }
 
-    public int getEmployeeCount(String projectCode) {
+    public Long getEmployeeCount(String projectCode) {
         String query = "SELECT count(*) FROM EMPLOYEE_DTO e WHERE e.project_code = '" + projectCode + "'";
-        return jdbcTemplate.query(query, new SingleColumnRowMapper<Integer>()).get(0);
+        return jdbcTemplate.query(query, new SingleColumnRowMapper<Long>()).get(0);
     }
 }
