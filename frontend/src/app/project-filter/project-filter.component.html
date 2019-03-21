@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="flex-item">
+    <mat-form-field class="ca80 project-filter">
+      <mat-label>Zühlke Company</mat-label>
+      <mat-select class="mat-select" multiple>
+        <mat-option *ngFor="let company of companies" [value]="company.a">{{company.a}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ca80 project-filter">
+      <mat-label>Industry</mat-label>
+      <mat-select class="mat-select" multiple>
+        <mat-option *ngFor="let company of companies" [value]="company.a">{{company.a}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ca80 project-filter">
+      <mat-label>Skills</mat-label>
+      <mat-select class="mat-select" multiple>
+        <mat-option *ngFor="let company of companies" [value]="company.a">{{company.a}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ca80 project-filter">
+      <mat-label># Employees</mat-label>
+      <mat-select class="mat-select" multiple>
+        <mat-option *ngFor="let company of companies" [value]="company.a">{{company.a}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="fixed">
+    <button mat-raised-button class="mat-raised-button mat-warn" (click)="openSnackBar()">Subscribe</button>
+  </div>
+</div>

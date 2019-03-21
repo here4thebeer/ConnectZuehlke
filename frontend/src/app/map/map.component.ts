@@ -12,13 +12,10 @@ import { Location } from '@angular/common';
 export class MapComponent implements OnInit {
   lat: number;
   lng: number;
-  zoom = 9;
+  zoom = 8;
   projects: Project[];
 
-  constructor(
-    private geocodeService: GeocodeService,
-    private projectService: ProjectService,
-    private locationService: Location) {
+  constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
@@ -44,7 +41,7 @@ export class MapComponent implements OnInit {
   }
 
   public redirectToProjectURL(project: Project) {
-    this.locationService.go(project.projectURL);
+    window.open(project.projectURL);
   }
 
   private getProjects() {

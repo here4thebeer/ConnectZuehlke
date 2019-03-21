@@ -33,6 +33,7 @@ import {TopbarComponent} from './navigation/topbar/topbar.component';
 import {MapComponent} from './map/map.component';
 import {AgmCoreModule} from '@agm/core';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
+import {ProjectFilterComponent} from "./project-filter/project-filter.component";
 
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
@@ -50,6 +51,7 @@ library.add(faAngular);
     SidebarComponent,
     TopbarComponent,
     MapComponent,
+    ProjectFilterComponent
   ],
   imports: [
     BrowserModule,
