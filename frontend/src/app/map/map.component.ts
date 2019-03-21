@@ -1,7 +1,7 @@
-import { ProjectService } from '../project.service';
-import { Component, OnInit } from '@angular/core';
-import { GeocodeService } from '../geocode.service';
-import { Project } from '../domain/Project';
+import {ProjectService} from '../project.service';
+import {Component, OnInit} from '@angular/core';
+import {GeocodeService} from '../geocode.service';
+import {Project} from '../domain/Project';
 
 @Component({
   selector: 'app-map',
@@ -47,14 +47,16 @@ export class MapComponent implements OnInit {
 
   public onZoomChange(newZoomLevel) {
     this.zoom = newZoomLevel;
-    console.log(this.zoom);
   }
 
   public calculateRadius(amountOfEmployees: number) {
-    const newRadius = Math.floor(2 ** (this.MAX_ZOOM - this.zoom) / 2);
-    // TODO yast: consider amount of employees
-     //  * (amountOfEmployees / this.maxAmountOfEmployeesInProject));
-    return newRadius;
+    const minRadius = 0.5;
+    const amountOfEmployeesFactor = (amountOfEmployees / this.maxAmountOfEmployeesInProject) > minRadius
+      ? (amountOfEmployees / this.maxAmountOfEmployeesInProject)
+      : minRadius;
+
+    return Math.floor(2 ** (this.MAX_ZOOM - this.zoom) / 2)
+      * amountOfEmployeesFactor;
   }
 
   public getProjectsList(): Project[] {
