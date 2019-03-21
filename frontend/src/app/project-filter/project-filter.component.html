@@ -35,6 +35,7 @@
           {{distributionValue ? 'Yes' : 'No'}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-stroked-button (click)="resetFilter()">Reset Filter</button>
   </div>
   <div class="fixed">
     <button mat-raised-button matTooltip="Subscribe for new projects with given filter settings" class="mat-raised-button mat-warn" (click)="openSnackBar()">Subscribe</button>

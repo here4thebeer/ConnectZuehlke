@@ -65,4 +65,15 @@ export class ProjectFilterComponent implements OnInit {
   applyFilters() {
     this.projectService.applyFilter(this.filterSelection);
   }
+
+  resetFilter() {
+    this.filterSelection = {
+      zuehlkeCompany: [],
+      industry: [],
+      employees: undefined,
+      skills: [],
+      distributed: undefined,
+    };
+    this.applyFilters();
+  }
 }

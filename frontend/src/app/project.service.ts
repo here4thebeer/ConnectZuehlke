@@ -33,6 +33,7 @@ export class ProjectService {
     obs$.pipe(
       debounce(() => timer(500))
     ).subscribe((latLng: LatLngBounds) => {
+      console.log(latLng);
       this.applyMapBounds(latLng);
     });
   }
