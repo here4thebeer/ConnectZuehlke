@@ -1,32 +1,22 @@
 package ch.zuehlke.fullstack.ConnectZuehlke;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.ProjectService;
-import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
-import ch.zuehlke.fullstack.ConnectZuehlke.persistence.ProjectRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
 public class ConnectZuehlkeApplication implements ApplicationRunner {
-    private static final Logger log = LoggerFactory.getLogger(ConnectZuehlkeApplication.class);
 
-    private final ProjectRepository projectRepository;
-    private final ProjectService projectService;
+    private final CrawlerService crawlerService;
 
     @Autowired
-    public ConnectZuehlkeApplication(ProjectRepository projectRepository, ProjectService projectService) {
-        this.projectRepository = projectRepository;
-        this.projectService = projectService;
+    public ConnectZuehlkeApplication(CrawlerService crawlerService) {
+        this.crawlerService = crawlerService;
     }
 
     public static void main(String[] args) {
@@ -35,8 +25,7 @@ public class ConnectZuehlkeApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        List<Project> projects = projectService.getProjects();
-        log.info("Loaded {} projects", projects.size());
+        crawlerService.crawlInsight();
     }
 }
 

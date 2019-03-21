@@ -2,6 +2,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 import static org.springframework.http.HttpMethod.GET;
 
 @Service
+@Profile({"prod", "staging"})
 public class InsightProjectServiceRemote implements InsightProjectService {
 
     private final RestTemplate insightRestTemplate;
