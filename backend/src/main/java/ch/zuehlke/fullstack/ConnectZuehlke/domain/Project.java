@@ -1,8 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,12 +16,14 @@ public class Project implements Serializable {
     private String zuehlkeCompany;
     private String projectCode;
     private String industry;
+    @ElementCollection(targetClass=String.class)
     private List<String> skills;
     private String pictureURL;
     private String logoURL;
     private String projectURL;
     private int amountOfEmployees;
     private boolean isDistributed;
+    @Lob
     private String projectDescription;
 
     public Project(String title, Location location, String zuehlkeCompany, String projectCode, String industry, List<String> skills, String pictureURL, String logoURL, String projectURL, int amountOfEmployees, boolean isDistributed, String projectDescription) {
