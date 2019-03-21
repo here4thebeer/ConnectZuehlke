@@ -9,7 +9,7 @@ export interface ProjectDto {
   skills: string[];
   pictureURL: string;
   logoURL: string;
-  projectURl: string;
+  projectURL: string;
   amountOfEmployees: number;
   isDistributed: boolean;
   projectDescription: string;
