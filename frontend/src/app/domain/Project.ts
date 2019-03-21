@@ -1,7 +1,20 @@
 import {Location} from './Location';
-export class Project {
 
+export interface ProjectDto {
   location: Location;
   title: string;
-  showDetail = false;
+  zuehlkeCompany: string;
+  projectCode: string;
+  industry: string;
+  skills: string[];
+  pictureURL: string;
+  logoURL: string;
+  projectURl: string;
+  amountOfEmployees: number;
+  isDistributed: boolean;
+  projectDescription: string;
+}
+
+export interface Project extends ProjectDto {
+  isSelected: boolean;
 }

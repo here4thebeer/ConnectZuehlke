@@ -1,8 +1,10 @@
 export interface Customer {
-  name: string;
-  city: string;
-  street: string;
   id: number;
+  name: string;
+  street: string;
+  city: string;
+  country: string;
   zip: number;
-
+  longitude: number;
+  latitude: number;
 }

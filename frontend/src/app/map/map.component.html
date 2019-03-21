@@ -1,8 +1,33 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-  <div *ngFor="let project of projects">
-    <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude" [radius]="8000"
-      fillColor="red" (circleClick)="handleClickProject(project)">
-      <agm-info-window [latitude]="project.location.latitude" [longitude]="project.location.longitude" [isOpen]="project.showDetail">{{project.title}}</agm-info-window>
-    </agm-circle>
-  </div>
-</agm-map>
+  <mat-drawer-container class="map-container">
+    <mat-drawer mode="side" opened class="project-list">
+      <h2>Projects</h2>
+      <mat-card *ngFor="let project of getProjectsList()">
+        <mat-card-header>
+          <img mat-card-avatar class="project-logo" [src]="project.logoURL">
+          <!-- <img mat-card-image [src]="project.logoURL" class="project-logo"> -->
+          {{ project.title }}
+        </mat-card-header>
+        <mat-card-content>
+          <div class="project-detail-item">
+            <mat-icon>home</mat-icon>
+            <div>
+
+              {{ project.location.street }}
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="secondary-header">
+        Filter options...
+      </div>
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()">
+        <div *ngFor="let project of projects">
+          <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude" [radius]="project.amountOfEmployees * 20"
+            fillColor="red" (circleClick)="selectProject(project)">
+          </agm-circle>
+        </div>
+      </agm-map>
+    </mat-drawer-content>
+  </mat-drawer-container>
