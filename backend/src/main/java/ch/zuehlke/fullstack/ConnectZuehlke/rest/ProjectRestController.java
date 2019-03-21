@@ -1,6 +1,6 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.ProjectService;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.project.ProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

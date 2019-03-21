@@ -1,14 +1,18 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @JsonIgnoreProperties
+@Entity
 public class ProjectDto {
 
     @JsonProperty("Code")
+    @Id
     private String code;
 
     @JsonProperty("Currency")
@@ -26,8 +30,13 @@ public class ProjectDto {
     @JsonProperty("Id")
     private Integer id;
 
-    private CustomerDto customerDto;
+    @JsonProperty("CustomerId")
+    private Integer customerId;
 
+
+    public ProjectDto() {
+        // JPA constructor
+    }
 
     public Project toProject() {
         return new Project(title, null);
@@ -81,14 +90,6 @@ public class ProjectDto {
         this.id = id;
     }
 
-    public CustomerDto getCustomerDto() {
-        return customerDto;
-    }
-
-    public void setCustomerDto(CustomerDto customerDto) {
-        this.customerDto = customerDto;
-    }
-
     @Override
     public String toString() {
         return "ProjectDto{" +
@@ -98,7 +99,7 @@ public class ProjectDto {
                 ", salesStateText='" + salesStateText + '\'' +
                 ", title='" + title + '\'' +
                 ", id=" + id +
-                ", customerDto=" + customerDto +
+                ", customerId=" + customerId +
                 '}';
     }
 }
