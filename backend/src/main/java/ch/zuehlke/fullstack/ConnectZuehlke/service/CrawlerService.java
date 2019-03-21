@@ -5,9 +5,11 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.customer.InsightCustomerService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.employee.InsightEmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.project.InsightProjectService;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.skill.InsightSkillService;
 import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightCustomerRepository;
 import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightEmployeeRepository;
 import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightProjectRepository;
+import ch.zuehlke.fullstack.ConnectZuehlke.persistence.InsightSkillRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CrawlerService {
@@ -26,14 +29,18 @@ public class CrawlerService {
     private final InsightCustomerService insightCustomerService;
     private final InsightEmployeeRepository insightEmployeeRepository;
     private final InsightEmployeeService insightEmployeeService;
+    private final InsightSkillService insightSkillService;
+    private final InsightSkillRepository insightSkillRepository;
 
-    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService) {
+    public CrawlerService(InsightProjectRepository insightProjectRepository, InsightProjectService insightProjectService, InsightCustomerRepository insightCustomerRepository, InsightCustomerService insightCustomerService, InsightEmployeeRepository insightEmployeeRepository, InsightEmployeeService insightEmployeeService, InsightSkillService insightSkillService, InsightSkillRepository insightSkillRepository) {
         this.insightProjectRepository = insightProjectRepository;
         this.insightProjectService = insightProjectService;
         this.insightCustomerRepository = insightCustomerRepository;
         this.insightCustomerService = insightCustomerService;
         this.insightEmployeeRepository = insightEmployeeRepository;
         this.insightEmployeeService = insightEmployeeService;
+        this.insightSkillService = insightSkillService;
+        this.insightSkillRepository = insightSkillRepository;
     }
 
     public void crawlInsight() {
@@ -51,10 +58,17 @@ public class CrawlerService {
                 .runOn(Schedulers.parallel())
                 .map(ProjectDto::getCode)
                 .map(insightEmployeeService::getForProject)
-                .filter(employeeDtos -> employeeDtos != null)
+                .filter(Objects::nonNull)
                 .filter(employeeDtos -> !employeeDtos.isEmpty())
-                .subscribe(employees -> insightEmployeeRepository.saveAll(employees));
+                .subscribe(insightEmployeeRepository::saveAll);
 
-
+        Flux.fromStream(projects.stream())
+                .parallel()
+                .runOn(Schedulers.parallel())
+                .map(ProjectDto::getCode)
+                .map(insightSkillService::getForProject)
+                .filter(Objects::nonNull)
+                .filter(skillDtos -> !skillDtos.isEmpty())
+                .subscribe(insightSkillRepository::saveAll);
     }
 }
