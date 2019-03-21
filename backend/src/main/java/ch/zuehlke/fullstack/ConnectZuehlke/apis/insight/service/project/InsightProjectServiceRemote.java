@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpMethod.GET;
 
 @Service
@@ -30,7 +32,12 @@ public class InsightProjectServiceRemote implements InsightProjectService {
                         .exchange("/projects", GET, null, new ParameterizedTypeReference<List<ProjectDto>>() {
                         });
 
-        return response.getBody();
+        return response.getBody().stream()
+                .filter(projectDto -> projectDto.getCode().startsWith("C"))
+                .filter(projectDto -> projectDto.getTo() != null)
+                .filter(projectDto -> projectDto.getTo().isAfter(now()))
+                .filter(projectDto -> projectDto.getCustomerId() != null)
+                .collect(Collectors.toList());
     }
 
 }

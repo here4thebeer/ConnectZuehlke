@@ -35,4 +35,11 @@ public class EmployeeDto {
         return code;
     }
 
+    @Override
+    public String toString() {
+        return "EmployeeDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }

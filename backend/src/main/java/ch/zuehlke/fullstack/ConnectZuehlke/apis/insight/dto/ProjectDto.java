@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @JsonIgnoreProperties
 @Entity
@@ -32,6 +33,9 @@ public class ProjectDto {
 
     @JsonProperty("CustomerId")
     private Integer customerId;
+
+    @JsonProperty("To")
+    private LocalDateTime to;
 
 
     public ProjectDto() {
@@ -98,6 +102,23 @@ public class ProjectDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    public void setTo(LocalDateTime to) {
+        this.to = to;
     }
 
     @Override
