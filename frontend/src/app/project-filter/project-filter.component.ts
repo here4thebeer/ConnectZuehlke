@@ -59,6 +59,7 @@ export class ProjectFilterComponent implements OnInit {
       )
       .subscribe(projects => {
         this.filterOptions = this.projectFilterService.getFilterOptions(projects);
+        console.log(this.filterOptions);
       });
   }
 
