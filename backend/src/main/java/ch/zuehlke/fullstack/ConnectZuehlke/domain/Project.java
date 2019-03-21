@@ -4,9 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Entity
 public class Project implements Serializable {
@@ -45,12 +43,6 @@ public class Project implements Serializable {
 
     public Project() {
         // jpa constructor
-    }
-
-    public Project(String title, Location location) {
-        this.title = title;
-        this.location = location;
-        this.skills = Collections.emptyList();
     }
 
     public String getTitle() {
