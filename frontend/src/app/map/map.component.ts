@@ -1,8 +1,8 @@
 import { ProjectService } from '../project.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-map',
@@ -15,7 +15,10 @@ export class MapComponent implements OnInit {
   zoom = 9;
   projects: Project[];
 
-  constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
+  constructor(
+    private geocodeService: GeocodeService,
+    private projectService: ProjectService,
+    private locationService: Location) {
   }
 
   ngOnInit(): void {
@@ -38,6 +41,10 @@ export class MapComponent implements OnInit {
 
   public getProjectsList(): Project[] {
     return this.projects && this.projects.some(p => p.isSelected) ? [this.projects.find(p => p.isSelected)] : this.projects;
+  }
+
+  public redirectToProjectURL(project: Project) {
+    this.locationService.go(project.projectURL);
   }
 
   private getProjects() {
