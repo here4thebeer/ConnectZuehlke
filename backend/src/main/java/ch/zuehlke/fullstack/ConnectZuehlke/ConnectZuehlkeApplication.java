@@ -37,7 +37,6 @@ public class ConnectZuehlkeApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         List<Project> projects = projectService.getProjects();
         log.info("Loaded {} projects", projects.size());
-        projectRepository.saveAll(projects);
     }
 }
 
