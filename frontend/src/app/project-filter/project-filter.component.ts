@@ -1,10 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   MatSnackBar,
   MatSnackBarConfig
 } from '@angular/material';
-import {ProjectService} from "../project.service";
-import {Project} from "../domain/Project";
+import { ProjectService } from '../project.service';
+import { Project } from '../domain/Project';
 
 @Component({
   selector: 'app-project-filter',
@@ -18,7 +18,13 @@ export class ProjectFilterComponent implements OnInit {
   industries: Set<string>;
   skills: Set<string>;
   distributionValues: Set<boolean>;
-  employeeNumbers: NumberOfEmployees[] = [NumberOfEmployees.LessOrEqualThan5, NumberOfEmployees.LessOrEqualThan10, NumberOfEmployees.LessOrEqualThan50, NumberOfEmployees.LessOrEqualThan100, NumberOfEmployees.MoreThan100];
+  employeeNumbers: NumberOfEmployees[] = [
+    NumberOfEmployees.LessOrEqualThan5,
+    NumberOfEmployees.LessOrEqualThan10,
+    NumberOfEmployees.LessOrEqualThan50,
+    NumberOfEmployees.LessOrEqualThan100,
+    NumberOfEmployees.MoreThan100
+  ];
   filterSelection: FilterSelection = {
     selectedCompanies: [],
     selectedIndustries: [],
@@ -37,7 +43,7 @@ export class ProjectFilterComponent implements OnInit {
   }
 
   public openSnackBar(): void {
-    let config = new MatSnackBarConfig();
+    const config = new MatSnackBarConfig();
     config.verticalPosition = 'bottom';
     config.horizontalPosition = 'center';
     config.duration = 5000;
@@ -53,7 +59,7 @@ export class ProjectFilterComponent implements OnInit {
         this.companies = new Set(this.projects.map(project => project.zuehlkeCompany));
         this.industries = new Set(this.projects.map(project => project.industry));
         this.distributionValues = new Set(this.projects.map(project => project.distributed));
-        let mergedSkills: string[][] = [];
+        const mergedSkills: string[][] = [];
         this.projects.forEach(project => mergedSkills.push(project.skills));
         this.skills = new Set(mergedSkills.flat(1));
       });
@@ -71,9 +77,9 @@ interface FilterSelection {
 }
 
 enum NumberOfEmployees {
-  LessOrEqualThan5 = "<= 5",
-  LessOrEqualThan10 = "<= 10",
-  LessOrEqualThan50 = "<= 50",
-  LessOrEqualThan100 = "<= 100",
-  MoreThan100 = "> 100"
+  LessOrEqualThan5 = '<= 5',
+  LessOrEqualThan10 = '<= 10',
+  LessOrEqualThan50 = '<= 50',
+  LessOrEqualThan100 = '<= 100',
+  MoreThan100 = '> 100'
 }
