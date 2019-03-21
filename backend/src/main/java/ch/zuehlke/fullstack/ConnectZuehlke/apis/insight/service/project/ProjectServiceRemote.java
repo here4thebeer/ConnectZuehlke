@@ -37,23 +37,21 @@ public class ProjectServiceRemote implements ProjectService {
                         .exchange("/projects", GET, null, new ParameterizedTypeReference<List<ProjectDto>>() {
                         });
 
-        // TODO yast: get customer for each project and aggregate location
-
         List<ProjectDto> projectDtos = new ArrayList<>(response.getBody());
-        queryProjectDetails(projectDtos);
+//        queryProjectDetails(projectDtos);
         return projectDtos.stream().map(ProjectDto::toProject).collect(toList());
     }
 
-    private void queryProjectDetails(List<ProjectDto> projectDtos) {
-        ParameterizedTypeReference<ProjectCustomerDetailDto> typeReference = new ParameterizedTypeReference<ProjectCustomerDetailDto>() {
-        };
-        projectDtos.forEach(projectDto -> {
-            String uri = "/projects/" + projectDto.getCode();
-            ResponseEntity<ProjectCustomerDetailDto> response = this.insightRestTemplate.exchange(uri, GET, null, typeReference);
-            CustomerDto customerDto = response.getBody().getCustomer();
-            projectDto.setCustomerDto(customerDto);
-            System.out.println(projectDto);
-        });
-    }
+//    private void queryProjectDetails(List<ProjectDto> projectDtos) {
+//        ParameterizedTypeReference<ProjectCustomerDetailDto> typeReference = new ParameterizedTypeReference<ProjectCustomerDetailDto>() {
+//        };
+//        projectDtos.forEach(projectDto -> {
+//            String uri = "/projects/" + projectDto.getCode();
+//            ResponseEntity<ProjectCustomerDetailDto> response = this.insightRestTemplate.exchange(uri, GET, null, typeReference);
+//            CustomerDto customerDto = response.getBody().getCustomer();
+//            projectDto.setCustomerDto(customerDto);
+//            System.out.println(projectDto);
+//        });
+//    }
 
 }

@@ -1,10 +1,10 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.persistence;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProjectRepository extends CrudRepository<Project, Long> {
+public interface ProjectRepository extends CrudRepository<ProjectDto, Integer> {
 
 }

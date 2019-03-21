@@ -7,23 +7,17 @@ import java.util.List;
 @Entity
 public class Project implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
     private String title;
     private Location location;
     private String zuehlkeCompany;
     private String projectCode;
     private String industry;
-    @ElementCollection(targetClass=String.class)
     private List<String> skills;
     private String pictureURL;
     private String logoURL;
     private String projectURL;
     private int amountOfEmployees;
     private boolean isDistributed;
-    @Lob
     private String projectDescription;
 
     public Project(String title, Location location, String zuehlkeCompany, String projectCode, String industry, List<String> skills, String pictureURL, String logoURL, String projectURL, int amountOfEmployees, boolean isDistributed, String projectDescription) {
