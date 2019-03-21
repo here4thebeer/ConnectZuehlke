@@ -34,7 +34,7 @@ import {MapComponent} from './map/map.component';
 import {AgmCoreModule} from '@agm/core';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
 import {ProjectFilterComponent} from './project-filter/project-filter.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
 library.add(faHeart);
@@ -64,6 +64,7 @@ library.add(faAngular);
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatTooltipModule,
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
