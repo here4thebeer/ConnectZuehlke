@@ -83,7 +83,7 @@ export class MapComponent implements OnInit {
   }
 
   public redirectToProjectURL(project: Project) {
-    window.open('https://insight.zuehlke.com' + project.projectURL);
+    window.open(project.projectURL);
   }
 
   private getProjects() {
