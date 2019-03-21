@@ -17,7 +17,6 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableCaching
 public class ConnectZuehlkeApplication implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(ConnectZuehlkeApplication.class);
 
