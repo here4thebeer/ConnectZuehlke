@@ -15,10 +15,7 @@ export class MapComponent implements OnInit {
   zoom = 9;
   projects: Project[];
 
-  constructor(
-    private geocodeService: GeocodeService,
-    private projectService: ProjectService,
-    private locationService: Location) {
+  constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
@@ -44,7 +41,7 @@ export class MapComponent implements OnInit {
   }
 
   public redirectToProjectURL(project: Project) {
-    this.locationService.go(project.projectURL);
+    window.open(project.projectURL);
   }
 
   private getProjects() {

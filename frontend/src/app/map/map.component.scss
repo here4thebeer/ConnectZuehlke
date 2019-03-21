@@ -1,9 +1,7 @@
-agm-map {
-  height: calc(100% - 104px);
-}
+
 
 .map-container {
-  height: 100%;
+  height: calc(100% - 64px);
   display: flex;
   flex-direction: column;
 
@@ -13,12 +11,17 @@ agm-map {
 
   .project-list {
     width: 450px;
-    height: calc(100% - 64px);
+    height: 100%;
 
     mat-card {
       margin: 20px 10px;
       border-radius: 2px;
       text-decoration: none;
+
+      &:hover {
+        cursor: pointer;
+        background: #f9f9f9;
+      }
 
       .project-logo {
         border-radius: 0;
