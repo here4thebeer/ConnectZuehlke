@@ -1,5 +1,5 @@
   <mat-drawer-container class="map-container">
-    <mat-drawer mode="side" opened class="project-list">
+    <mat-drawer mode="side" opened class="project-list" [disableClose]="true">
       <div class="container">
         <div class="flex-item">
           <h2>Projects ({{getProjectsList().length}})</h2>
@@ -7,7 +7,7 @@
         <div class="fixed">
           <button mat-mini-fab matTooltip="Show only projects on the whishlist"
             [ngClass]="{'button-favorite':showOnlyFavorites, 'button-not-favorite':!showOnlyFavorites}"
-            matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after" matBadgeColor="primary"
+            matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after"
             (click)="onFavorites()">
             <mat-icon>favorite</mat-icon>
           </button>
