@@ -3,7 +3,7 @@ import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
-import { LatLngBounds } from '@agm/core';
+import {GoogleMapsAPIWrapper, LatLngBounds, LatLngLiteral} from '@agm/core';
 import {MAP_STYLE} from "./map.styles";
 
 @Component({
@@ -24,7 +24,9 @@ export class MapComponent implements OnInit {
   showOnlyFavorites = false;
   mapBounds$: BehaviorSubject<LatLngBounds> = new BehaviorSubject(null);
 
-  constructor(private geocodeService: GeocodeService, private projectService: ProjectService) {
+  constructor(private geocodeService: GeocodeService,
+              private googleMapsApiWrapper: GoogleMapsAPIWrapper,
+              private projectService: ProjectService) {
     this.projectService.registerMapBoundsObservable(this.mapBounds$);
   }
 
@@ -55,7 +57,7 @@ export class MapComponent implements OnInit {
   }
 
   public calculateColor(project: Project): string {
-    return project.isFavorite ? '#ff8208' : '#925FA7';
+      return project.isSelected ? '#ff8208' : project.isFavorite ? 'red' : '#925FA7';
   }
 
   public calculateRadius(amountOfEmployees: number) {
@@ -78,6 +80,13 @@ export class MapComponent implements OnInit {
     }
   }
 
+  public zoomToProject(project: Project) {
+    this.lat = project.location.latitude;
+    this.lng  = project.location.longitude;
+    project.isSelected = true;
+    this.onZoomChange(this.zoom + 2);
+  }
+
   public onFavorites(): void {
     this.showOnlyFavorites = !this.showOnlyFavorites;
   }
@@ -94,4 +103,5 @@ export class MapComponent implements OnInit {
         this.maxAmountOfEmployeesInProject = Math.max(...this.projects.map(p => p.amountOfEmployees));
       });
   }
+
 }

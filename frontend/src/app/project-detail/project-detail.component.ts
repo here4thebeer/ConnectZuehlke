@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
 import { Project } from '../domain/Project';
 import {DistanceService} from '../distance.service';
 
@@ -12,6 +12,9 @@ export class ProjectDetailComponent implements OnChanges {
   @Input()
   project: Project;
 
+  @Output()
+  selectedProject = new EventEmitter<Project>();
+
   constructor(private distanceService: DistanceService) {
   }
 
@@ -23,6 +26,10 @@ export class ProjectDetailComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const origin = this.distanceService.getPosition().getValue();
     this.distanceService.loadDistanceForProject(origin, this.project);
+  }
+
+  public zoomToProject(project: Project) {
+    this.selectedProject.emit(project);
   }
 
   public redirectToProjectURL(project: Project) {

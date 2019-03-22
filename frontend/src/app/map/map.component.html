@@ -15,7 +15,7 @@
       </div>
       <cdk-virtual-scroll-viewport itemSize="260" minBufferPx="260" maxBufferPx="260">
         <div *cdkVirtualFor="let p of getProjectsList()">
-          <app-project-detail [project]="p"></app-project-detail>
+          <app-project-detail (selectedProject)="zoomToProject($event)" [project]="p"></app-project-detail>
         </div>
       </cdk-virtual-scroll-viewport>
     </mat-drawer>
@@ -24,7 +24,7 @@
         <app-project-filter></app-project-filter>
       </div>
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()" (boundsChange)="onBoundsChange($event)"
-        (zoomChange)="onZoomChange($event)" [styles]="style">
+        (zoomChange)="onZoomChange($event)" [styles]="style" [usePanning]="true">
         <div *ngFor="let project of projects">
           <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude"
             [radius]="calculateRadius(project.amountOfEmployees)" (circleClick)="selectProject(project)"

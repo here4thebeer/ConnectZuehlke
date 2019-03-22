@@ -1,4 +1,4 @@
-<mat-card (click)="redirectToProjectURL(project)">
+<mat-card (click)="zoomToProject(project)">
     <mat-card-header>
       <img mat-card-avatar class="project-logo" [src]="project.logoURL">
       <h4>{{ project.title }}</h4>
@@ -29,6 +29,9 @@
           [ngClass]="{'button-favorite':project.isFavorite, 'button-not-favorite':!project.isFavorite}" mat-mini-fab
           (click)="onFavorite($event, project)">
           <mat-icon>favorite</mat-icon>
+        </button>
+        <button class="button-not-favorite" matTooltip="Open in Insight" mat-mini-fab (click)="redirectToProjectURL(project)">
+          <mat-icon>open_in_new</mat-icon>
         </button>
       </div>
     </mat-card-content>
