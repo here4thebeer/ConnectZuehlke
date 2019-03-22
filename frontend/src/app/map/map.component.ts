@@ -86,10 +86,6 @@ export class MapComponent implements OnInit {
     return this.getProjectsList().filter(p => p.isFavorite);
   }
 
-  public redirectToProjectURL(project: Project) {
-    window.open(project.projectURL);
-  }
-
   private getProjects() {
     this.projectService
       .getProjects()
