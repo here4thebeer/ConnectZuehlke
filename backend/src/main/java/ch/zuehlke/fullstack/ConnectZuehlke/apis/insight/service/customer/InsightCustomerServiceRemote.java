@@ -63,24 +63,41 @@ public class InsightCustomerServiceRemote implements InsightCustomerService {
     }
 
     private void fixLocation(CustomerDto customer) {
-        ArrayList<String> possibleAddresses = Lists.newArrayList(
-                customer.getName() + ", " + customer.getZip() + " " + customer.getCity() + ", " + customer.getCountry(),
-                customer.getStreet() + ", " + customer.getZip() + " " + customer.getCity() + ", " + customer.getCountry(),
-                customer.getName() + ", " + customer.getCountry()
-        );
-        if (customer.getStreet() == null ||
-                customer.getStreet().toLowerCase().contains("postfach") ||
-                customer.getLatitude() == null ||
-                customer.getLongitude() == null) {
-            possibleAddresses.stream()
-                    .map(geocodeService::getGeocodeOfAddress)
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .findFirst().ifPresent(latLng -> {
-                log.info("Updating customer {} with {}", customer, latLng);
-                customer.setLatitude(latLng.lat);
-                customer.setLongitude(latLng.lng);
-            });
+        if (customer.getId().equals(14337)) {
+            customer.setLatitude(51.354231);
+            customer.setLongitude(-0.460845);
+        } else if (customer.getId().equals(13291)) {
+            customer.setLatitude(51.505784);
+            customer.setLongitude(-0.018477);
+        } else if (customer.getId().equals(12945)) {
+            customer.setLatitude(22.318358);
+            customer.setLongitude(114.161001);
+        } else if (customer.getId().equals(12660)) {
+            customer.setLatitude(51.536726);
+            customer.setLongitude(-0.079696);
+        } else if (customer.getId().equals(13269)) {
+            customer.setLatitude(53.480453);
+            customer.setLongitude(-2.238986);
+        } else {
+            ArrayList<String> possibleAddresses = Lists.newArrayList(
+                    customer.getName() + ", " + customer.getZip() + " " + customer.getCity() + ", " + customer.getCountry(),
+                    customer.getStreet() + ", " + customer.getZip() + " " + customer.getCity() + ", " + customer.getCountry(),
+                    customer.getName() + ", " + customer.getCountry()
+            );
+            if (customer.getStreet() == null ||
+                    customer.getStreet().toLowerCase().contains("postfach") ||
+                    customer.getLatitude() == null ||
+                    customer.getLongitude() == null) {
+                possibleAddresses.stream()
+                        .map(geocodeService::getGeocodeOfAddress)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .findFirst().ifPresent(latLng -> {
+                    log.info("Updating customer {} with {}", customer, latLng);
+                    customer.setLatitude(latLng.lat);
+                    customer.setLongitude(latLng.lng);
+                });
+            }
         }
     }
 }
