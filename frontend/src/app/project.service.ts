@@ -81,7 +81,7 @@ export class ProjectService {
 
   registerMapBoundsObservable(obs$: BehaviorSubject<LatLngBounds>) {
     obs$.pipe(
-      debounce(() => timer(500))
+      debounce(() => timer(300))
     ).subscribe((latLng: LatLngBounds) => {
       this.applyMapBounds(latLng);
     });
