@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
 import {Location} from './domain/Location';
-import {LatLonCoordinates} from "./map/map.component";
+import {LatLonCoordinates} from "./project.service";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class GeocodeService {
   route(destination: Location, origin?: LatLonCoordinates): Promise<google.maps.DirectionsResult> {
     return this.maps$.then(maps => {
       let request: google.maps.DirectionsRequest = {
-        destination: destination.latitude + ',' + destination.longitude,
+        destination: destination.latitude === 0 && destination.longitude === 0 ? destination.zip + ',' + destination.city + ',' + destination.country : destination.latitude + ',' + destination.longitude,
         origin: origin ? origin.latitude + "," + origin.longitude : 'Zurich',
         travelMode: maps.TravelMode.TRANSIT
       };
