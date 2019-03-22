@@ -1,5 +1,5 @@
   <mat-drawer-container class="map-container">
-    <mat-drawer mode="side" opened class="project-list">
+    <mat-drawer mode="side" opened class="project-list" [disableClose]="true">
       <div class="container">
         <div class="flex-item">
           <h2>Projects ({{getProjectsList().length}})</h2>
