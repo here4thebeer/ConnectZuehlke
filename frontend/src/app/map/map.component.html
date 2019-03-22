@@ -7,7 +7,7 @@
         <div class="fixed">
           <button mat-mini-fab matTooltip="Show only projects on the whishlist"
             [ngClass]="{'button-favorite':showOnlyFavorites, 'button-not-favorite':!showOnlyFavorites}"
-            matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after" matBadgeColor="primary"
+            matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after"
             (click)="onFavorites()">
             <mat-icon>favorite</mat-icon>
           </button>
