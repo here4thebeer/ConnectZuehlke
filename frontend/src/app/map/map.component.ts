@@ -3,7 +3,7 @@ import { ProjectService } from '../project.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
-import {GoogleMapsAPIWrapper, LatLngBounds, LatLngLiteral} from '@agm/core';
+import {LatLngBounds} from '@agm/core';
 import {MAP_STYLE} from "./map.styles";
 
 @Component({
@@ -25,7 +25,6 @@ export class MapComponent implements OnInit {
   mapBounds$: BehaviorSubject<LatLngBounds> = new BehaviorSubject(null);
 
   constructor(private geocodeService: GeocodeService,
-              private googleMapsApiWrapper: GoogleMapsAPIWrapper,
               private projectService: ProjectService) {
     this.projectService.registerMapBoundsObservable(this.mapBounds$);
   }
