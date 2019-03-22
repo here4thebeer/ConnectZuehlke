@@ -1,10 +1,12 @@
-import { BehaviorSubject } from 'rxjs';
-import { ProjectService } from '../project.service';
-import { Component, OnInit } from '@angular/core';
-import { GeocodeService } from '../geocode.service';
-import { Project } from '../domain/Project';
+import {BehaviorSubject} from 'rxjs';
+import {ProjectService} from '../project.service';
+import {Component, OnInit} from '@angular/core';
+import {GeocodeService} from '../geocode.service';
+import {Project} from '../domain/Project';
 import {LatLngBounds} from '@agm/core';
 import {MAP_STYLE} from "./map.styles";
+import {RxStompService} from '@stomp/ng2-stompjs';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-map',
@@ -25,8 +27,23 @@ export class MapComponent implements OnInit {
   mapBounds$: BehaviorSubject<LatLngBounds> = new BehaviorSubject(null);
 
   constructor(private geocodeService: GeocodeService,
-              private projectService: ProjectService) {
+              private projectService: ProjectService,
+              private rxStompService: RxStompService,
+              private snackBar: MatSnackBar) {
+
     this.projectService.registerMapBoundsObservable(this.mapBounds$);
+
+    rxStompService.watch('/topic/notification').subscribe((message) => {
+      const project: Project = JSON.parse(message.body);
+      const messageText = "Project " + project['title'] + " needs you!";
+      const simpleSnackBarMatSnackBarRef = this.snackBar.open(messageText, 'show', {
+        duration: 4000
+      });
+      const that = this;
+      simpleSnackBarMatSnackBarRef.onAction().subscribe(value => {
+        this.zoomToProject(project);
+      })
+    });
   }
 
   ngOnInit(): void {
@@ -56,7 +73,7 @@ export class MapComponent implements OnInit {
   }
 
   public calculateColor(project: Project): string {
-      return project.isSelected ? '#ff8208' : project.isFavorite ? 'red' : '#925FA7';
+    return project.isSelected ? '#ff8208' : project.isFavorite ? 'red' : '#925FA7';
   }
 
   public calculateRadius(amountOfEmployees: number) {
@@ -81,7 +98,7 @@ export class MapComponent implements OnInit {
 
   public zoomToProject(project: Project) {
     this.lat = project.location.latitude;
-    this.lng  = project.location.longitude;
+    this.lng = project.location.longitude;
     project.isSelected = true;
     this.onZoomChange(this.zoom + 2);
   }
