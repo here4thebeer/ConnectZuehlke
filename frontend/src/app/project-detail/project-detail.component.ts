@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { Project } from '../domain/Project';
-import {DistanceService} from "../distance.service";
+import {DistanceService} from '../distance.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -21,9 +21,12 @@ export class ProjectDetailComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Get commutate information' + this.project);
     const origin = this.distanceService.getPosition().getValue();
     this.distanceService.loadDistanceForProject(origin, this.project);
+  }
+
+  public redirectToProjectURL(project: Project) {
+    window.open(project.projectURL);
   }
 
 }
