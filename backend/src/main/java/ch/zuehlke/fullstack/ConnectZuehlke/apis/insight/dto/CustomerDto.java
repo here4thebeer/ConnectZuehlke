@@ -74,6 +74,13 @@ public class CustomerDto {
         return latitude;
     }
 
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
     public Customer toCustomer() {
         return new Customer(
