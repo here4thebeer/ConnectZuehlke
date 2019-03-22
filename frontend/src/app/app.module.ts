@@ -27,9 +27,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
-import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
-import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {TopbarComponent} from './navigation/topbar/topbar.component';
 import {MapComponent} from './map/map.component';
 import {AgmCoreModule} from '@agm/core';
@@ -64,8 +62,6 @@ const stompConfig: InjectableRxStompConfig = {
     AppComponent,
     PageNotFoundComponent,
     SearchPipe,
-    NavigationComponent,
-    SidebarComponent,
     TopbarComponent,
     MapComponent,
     ProjectFilterComponent,
