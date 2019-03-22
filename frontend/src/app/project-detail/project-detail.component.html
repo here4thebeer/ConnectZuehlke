@@ -4,7 +4,7 @@
       <h4>{{ project.title }}</h4>
     </mat-card-header>
     <mat-card-content>
-      <div class="project-detail-item">
+      <div style="margin-top: 20px" class="project-detail-item">
         <mat-icon matTooltip="Location">location_on</mat-icon>
         <div> {{ project.location.street + ', ' + project.location.zip + ' ' + project.location.city }} </div>
       </div>
@@ -25,14 +25,14 @@
       <div class="project-detail-item">
         <mat-icon matTooltip="Number of staffed people">people_outline</mat-icon>
         <div> {{ project.amountOfEmployees }} </div>
-        <button matTooltip="Add to whishlist"
-          [ngClass]="{'button-favorite':project.isFavorite, 'button-not-favorite':!project.isFavorite}" mat-mini-fab
-          (click)="onFavorite($event, project)">
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <button class="button-not-favorite" matTooltip="Open in Insight" mat-mini-fab (click)="redirectToProjectURL(project)">
-          <mat-icon>open_in_new</mat-icon>
-        </button>
       </div>
+      <button style="margin-right: 50px;" matTooltip="Add to whishlist"
+              [ngClass]="{'button-favorite':project.isFavorite, 'button-not-favorite':!project.isFavorite}" mat-mini-fab
+              (click)="onFavorite($event, project)">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button class="button-not-favorite" matTooltip="Open in Insight" mat-mini-fab (click)="redirectToProjectURL(project)">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
     </mat-card-content>
   </mat-card>

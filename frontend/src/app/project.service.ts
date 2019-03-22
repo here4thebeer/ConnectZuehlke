@@ -2,15 +2,15 @@ import { ProjectFilterService } from './project-filter.service';
 import { ProjectFilterSelection } from './project-filter/project-filter';
 import { Project } from './domain/Project';
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject, Subscription, timer } from 'rxjs';
-import { catchError, tap, map, debounce } from 'rxjs/operators';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
+import { catchError, tap, map, debounce, delayWhen, withLatestFrom, take, concat, skip, debounceTime } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from '@agm/core';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
   projects: Project[];
-  getProjects$: Subscription;
+  getProjects$: Observable<Project[]>;
   currentRelevantProjects$: BehaviorSubject<Project[]> = new BehaviorSubject([]);
   lastFilterSelection: ProjectFilterSelection;
   lastMapBounds: LatLngBounds;
@@ -26,14 +26,16 @@ export class ProjectService {
         map(p => p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees)),
         tap(p => this.projects = p),
         tap(p => this.currentRelevantProjects$.next(p)),
-      ).subscribe();
+      );
   }
 
   registerMapBoundsObservable(obs$: BehaviorSubject<LatLngBounds>) {
     obs$.pipe(
-      debounce(() => timer(300))
-    ).subscribe((latLng: LatLngBounds) => {
-      this.applyMapBounds(latLng);
+      debounceTime(300),
+    ).subscribe((latLng) => {
+      this.getProjects$.subscribe(() => {
+        this.applyMapBounds(latLng);
+      });
     });
   }
 

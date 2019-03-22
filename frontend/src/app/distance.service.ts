@@ -24,13 +24,16 @@ export class DistanceService {
   loadDistanceForProject(origin: LatLng, project: Project) {
     if (project.zuehlkeCompany !== 'Zühlke Switzerland') {
       if (project.zuehlkeCompany === 'Zuhlke Singapore') {
-        project.commuteDistance = 12000;
-        project.commuteDuration = 1000;
+        project.commuteDistance = 10550;
+        project.commuteDuration = 840;
+      } else if (project.zuehlkeCompany === 'Zuhlke Hong Kong') {
+        project.commuteDistance = 9290;
+        project.commuteDuration = 845;
       } else {
         this.geocodeService.route(project.location).then(direction => {
           project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
           project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-        }).catch(err => {
+        }).catch(() => {
             project.commuteDistance = Number.NaN;
             project.commuteDuration = Number.NaN;
           }
@@ -40,7 +43,7 @@ export class DistanceService {
       this.geocodeService.route(project.location, origin).then(direction => {
         project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
         project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-      }).catch(err => {
+      }).catch(() => {
           project.commuteDistance = Number.NaN;
           project.commuteDuration = Number.NaN;
         }

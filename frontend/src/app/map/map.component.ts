@@ -4,7 +4,7 @@ import {Component, OnInit} from '@angular/core';
 import {GeocodeService} from '../geocode.service';
 import {Project} from '../domain/Project';
 import {LatLngBounds} from '@agm/core';
-import {MAP_STYLE} from "./map.styles";
+import {MAP_STYLE} from './map.styles';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {MatSnackBar} from '@angular/material';
 
