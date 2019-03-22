@@ -3,9 +3,9 @@ import { ProjectFilterSelection } from './project-filter/project-filter';
 import { Project } from './domain/Project';
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject, Subscription, timer } from 'rxjs';
-import { catchError, tap, filter, map, debounce, publish } from 'rxjs/operators';
+import { catchError, tap, map, debounce } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { LatLngBounds, LatLng } from '@agm/core';
+import { LatLngBounds } from '@agm/core';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
@@ -22,7 +22,7 @@ export class ProjectService {
     this.getProjects$ = this.http
       .get<Project[]>('/api/projects')
       .pipe(
-        catchError(this.handleError<Project[]>('getProjects', [])),
+        catchError(this.handleError<Project[]>([])),
         map(p => p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees)),
         tap(p => this.projects = p),
         tap(p => this.currentRelevantProjects$.next(p)),
@@ -33,7 +33,6 @@ export class ProjectService {
     obs$.pipe(
       debounce(() => timer(500))
     ).subscribe((latLng: LatLngBounds) => {
-      console.log(latLng);
       this.applyMapBounds(latLng);
     });
   }
@@ -60,7 +59,7 @@ export class ProjectService {
     this.currentRelevantProjects$.next(filteredProjects);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);
