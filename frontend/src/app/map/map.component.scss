@@ -16,7 +16,7 @@
     height: 100%;
 
     cdk-virtual-scroll-viewport {
-      height: calc(100% - 70px);
+      height: calc(100% - 80px);
     }
 
     h2 {
@@ -26,6 +26,7 @@
 }
 .container {
   display: flex;
+  margin-top: 10px;
   margin-left: 10px;
   height: 70px;
 }
