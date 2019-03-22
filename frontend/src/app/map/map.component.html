@@ -13,7 +13,7 @@
           </button>
         </div>
       </div>
-      <cdk-virtual-scroll-viewport itemSize="260">
+      <cdk-virtual-scroll-viewport itemSize="260" minBufferPx="1300" maxBufferPx="2600">
         <div *cdkVirtualFor="let p of getProjectsList()">
           <app-project-detail [project]="p"></app-project-detail>
         </div>
