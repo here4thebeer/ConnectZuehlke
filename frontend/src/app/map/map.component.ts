@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeocodeService } from '../geocode.service';
 import { Project } from '../domain/Project';
 import { LatLngBounds } from '@agm/core';
+import {MAP_STYLE} from "./map.styles";
 
 @Component({
   selector: 'app-map',
@@ -14,7 +15,7 @@ export class MapComponent implements OnInit {
 
   readonly MIN_ZOOM: number = 1;
   readonly MAX_ZOOM: number = 22;
-
+  style = MAP_STYLE;
   lat: number;
   lng: number;
   zoom = 8;
@@ -59,7 +60,7 @@ export class MapComponent implements OnInit {
   }
 
   public calculateColor(project: Project): string {
-    return project.isFavorite ? 'red' : 'blue';
+    return project.isFavorite ? '#ff8208' : '#925FA7';
   }
 
   public calculateRadius(amountOfEmployees: number) {

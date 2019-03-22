@@ -58,7 +58,7 @@
         <app-project-filter></app-project-filter>
       </div>
       <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="resetProjectSelection()" (boundsChange)="onBoundsChange($event)"
-        (zoomChange)="onZoomChange($event)">
+        (zoomChange)="onZoomChange($event)" [styles]="style">
         <div *ngFor="let project of projects">
           <agm-circle [latitude]="project.location.latitude" [longitude]="project.location.longitude"
             [radius]="calculateRadius(project.amountOfEmployees)" (circleClick)="selectProject(project)"
