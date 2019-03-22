@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {MapsAPILoader} from '@agm/core';
+import {LatLng, MapsAPILoader} from '@agm/core';
 import {Location} from './domain/Location';
-import {LatLonCoordinates} from "./project.service";
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +37,12 @@ export class GeocodeService {
     });
   }
 
-  route(destination: Location, origin?: LatLonCoordinates): Promise<google.maps.DirectionsResult> {
+  route(destination: Location, origin?: LatLng): Promise<google.maps.DirectionsResult> {
     return this.maps$.then(maps => {
       let request: google.maps.DirectionsRequest = {
-        destination: destination.latitude === 0 && destination.longitude === 0 ? destination.zip + ',' + destination.city + ',' + destination.country : destination.latitude + ',' + destination.longitude,
-        origin: origin ? origin.latitude + "," + origin.longitude : 'Zurich',
-        travelMode: maps.TravelMode.TRANSIT
+        destination: destination.latitude === 0 && destination.longitude === 0 ? destination.zip + ' ' + destination.city + ',' + destination.country : destination.latitude + ',' + destination.longitude,
+        origin: origin ? origin.lat + "," + origin.lng : 'Zurich',
+        travelMode: (destination.zip === 86444 || destination.zip === 87459) ? maps.TravelMode.DRIVING : maps.TravelMode.TRANSIT
       };
       let directionsService = new maps.DirectionsService();
       return new Promise<google.maps.DirectionsResult>((resolve, reject) => {
@@ -51,6 +50,8 @@ export class GeocodeService {
           if (status == maps.DirectionsStatus.OK) {
             resolve(response);
           } else {
+            console.log(status);
+            console.log(response);
             reject(response);
           }
         });

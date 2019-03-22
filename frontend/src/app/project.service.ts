@@ -6,7 +6,6 @@ import { Observable, of, BehaviorSubject, Subscription, timer } from 'rxjs';
 import { catchError, tap, map, debounce } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from '@agm/core';
-import {GeocodeService} from './geocode.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
@@ -19,7 +18,6 @@ export class ProjectService {
   constructor(
     private http: HttpClient,
     private projectFilterService: ProjectFilterService,
-    private geocodeService: GeocodeService
   ) {
     this.getProjects$ = this.http
       .get<Project[]>('/api/projects')
@@ -28,54 +26,7 @@ export class ProjectService {
         map(p => p.sort((a, b) => b.amountOfEmployees - a.amountOfEmployees)),
         tap(p => this.projects = p),
         tap(p => this.currentRelevantProjects$.next(p)),
-        tap(p => this.loadDistance(p)),
       ).subscribe();
-  }
-
-  loadDistance(projects: Project[]) {
-    let coordinates: LatLonCoordinates;
-    this.getCurrentPosition().then(position => {
-      coordinates = position;
-      projects.forEach(p => this.loadDistanceForProject(coordinates, p));
-    }).catch(err => {
-      coordinates = new LatLonCoordinates(47.399699, 8.443863);
-      projects.forEach(p => this.loadDistanceForProject(coordinates, p));
-    });
-  }
-
-  loadDistanceForProject(origin: LatLonCoordinates, project: Project) {
-    if (project.zuehlkeCompany !== 'Zühlke Switzerland') {
-      this.geocodeService.route(project.location).then(direction => {
-        project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
-        project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-      }).catch(err => {
-          project.commuteDistance = Number.NaN;
-          project.commuteDuration = Number.NaN;
-        }
-      )
-    } else {
-      this.geocodeService.route(project.location, origin).then(direction => {
-        project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
-        project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-      }).catch(err => {
-          project.commuteDistance = Number.NaN;
-          project.commuteDuration = Number.NaN;
-        }
-      )
-    }
-  }
-
-  private getCurrentPosition(): Promise<LatLonCoordinates> {
-    if (window.navigator && window.navigator.geolocation) {
-      return new Promise<LatLonCoordinates>((resolve, reject) => {
-        window.navigator.geolocation.getCurrentPosition(position => {
-          resolve(new LatLonCoordinates(position.coords.latitude, position.coords.longitude));
-        }, error => {
-          reject(new LatLonCoordinates(47.399699, 8.443863));
-        });
-
-      });
-    }
   }
 
   registerMapBoundsObservable(obs$: BehaviorSubject<LatLngBounds>) {
@@ -114,10 +65,4 @@ export class ProjectService {
       return of(result as T);
     };
   }
-}
-
-export class LatLonCoordinates {
-  constructor(
-    public latitude: number,
-    public longitude: number) {}
 }
