@@ -33,7 +33,7 @@ export class DistanceService {
         this.geocodeService.route(project.location).then(direction => {
           project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
           project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-        }).catch(err => {
+        }).catch(() => {
             project.commuteDistance = Number.NaN;
             project.commuteDuration = Number.NaN;
           }
@@ -43,7 +43,7 @@ export class DistanceService {
       this.geocodeService.route(project.location, origin).then(direction => {
         project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
         project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-      }).catch(err => {
+      }).catch(() => {
           project.commuteDistance = Number.NaN;
           project.commuteDuration = Number.NaN;
         }
