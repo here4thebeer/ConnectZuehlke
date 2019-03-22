@@ -15,9 +15,14 @@
     width: 450px;
     height: 100%;
 
+    cdk-virtual-scroll-viewport {
+      height: calc(100% - 70px);
+    }
+
     mat-card {
       margin: 20px 10px;
       border-radius: 2px;
+      max-height: 260px;
       text-decoration: none;
 
       &:hover {
@@ -75,6 +80,7 @@
 .container {
   display: flex;
   margin-left: 10px;
+  height: 70px;
 }
 
 .fixed {

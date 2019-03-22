@@ -36,6 +36,7 @@ import {AgmCoreModule} from '@agm/core';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
 import {ProjectFilterComponent} from './project-filter/project-filter.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
 import * as SockJS from 'sockjs-client';
 
@@ -93,6 +94,7 @@ const stompConfig: InjectableRxStompConfig = {
     MatSidenavModule,
     MatListModule,
     MatCardModule,
+    ScrollDispatchModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [
