@@ -5,6 +5,12 @@
           <h2>Projects ({{getProjectsList().length}})</h2>
         </div>
         <div class="fixed">
+          <button mat-mini-fab matTooltip="New project opportunities"
+                  [ngClass]="{'button-favorite':notificationCount, 'button-not-favorite':!notificationCount}"
+                  matBadge="{{notificationCount}}" matBadgePosition="after" matBadgeColor="primary"
+                  (click)="onNotifications()">
+            <mat-icon>notifications</mat-icon>
+          </button>
           <button mat-mini-fab matTooltip="Show only projects on the whishlist"
             [ngClass]="{'button-favorite':showOnlyFavorites, 'button-not-favorite':!showOnlyFavorites}"
             matBadge="{{getFavoriteProjectsList().length}}" matBadgePosition="after"

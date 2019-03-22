@@ -18,6 +18,7 @@ export interface ProjectDto {
 export interface Project extends ProjectDto {
   isSelected: boolean;
   isFavorite: boolean;
+  isNewNotification: boolean;
   commuteDistance: number;
   commuteDuration: number;
 }

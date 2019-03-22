@@ -26,7 +26,7 @@ public class NotificationSimulator {
         this.projectRepository = projectRepository;
     }
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 20000)
     public void getNotification() {
         List<Project> all = projectRepository.getAll();
         Project project = all.get(new Random().nextInt(all.size()));

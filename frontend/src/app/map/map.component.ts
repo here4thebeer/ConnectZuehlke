@@ -15,6 +15,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class MapComponent implements OnInit {
 
+  notificationCount : number = 0;
   readonly MIN_ZOOM: number = 1;
   readonly MAX_ZOOM: number = 22;
   style = MAP_STYLE;
@@ -24,6 +25,7 @@ export class MapComponent implements OnInit {
   projects: Project[];
   maxAmountOfEmployeesInProject: number;
   showOnlyFavorites = false;
+  showOnlyNotifications = false;
   mapBounds$: BehaviorSubject<LatLngBounds> = new BehaviorSubject(null);
 
   constructor(private geocodeService: GeocodeService,
@@ -35,14 +37,11 @@ export class MapComponent implements OnInit {
 
     rxStompService.watch('/topic/notification').subscribe((message) => {
       const project: Project = JSON.parse(message.body);
-      const messageText = "Project " + project['title'] + " needs you!";
-      const simpleSnackBarMatSnackBarRef = this.snackBar.open(messageText, 'show', {
-        duration: 4000
-      });
-      const that = this;
-      simpleSnackBarMatSnackBarRef.onAction().subscribe(value => {
-        this.zoomToProject(project);
-      })
+      let newNotification = this.findProject(project.projectCode);
+      if (newNotification !== undefined) {
+        this.notificationCount = this.notificationCount + 1;
+        newNotification.isNewNotification = true;
+      }
     });
   }
 
@@ -89,7 +88,9 @@ export class MapComponent implements OnInit {
   public getProjectsList(): Project[] {
     if (this.showOnlyFavorites) {
       return this.projects.filter(p => p.isFavorite);
-    } else {
+    } else if(this.showOnlyNotifications) {
+      return this.projects.filter(p => p.isNewNotification);
+    } else{
       return this.projects && this.projects.some(p => p.isSelected)
         ? [this.projects.find(p => p.isSelected)]
         : this.projects;
@@ -107,6 +108,14 @@ export class MapComponent implements OnInit {
     this.showOnlyFavorites = !this.showOnlyFavorites;
   }
 
+  public onNotifications() : void {
+    if (this.showOnlyNotifications) {
+      this.projects.forEach(p => p.isNewNotification = false);
+      this.notificationCount = 0;
+    }
+    this.showOnlyNotifications = !this.showOnlyNotifications;
+  }
+
   public getFavoriteProjectsList(): Project[] {
     return this.getProjectsList().filter(p => p.isFavorite);
   }
@@ -118,6 +127,12 @@ export class MapComponent implements OnInit {
         this.projects = projects;
         this.maxAmountOfEmployeesInProject = Math.max(...this.projects.map(p => p.amountOfEmployees));
       });
+  }
+
+  private findProject(projectCode : string):Project {
+    let list = this.projects.filter(p => p.projectCode == projectCode);
+    debugger;
+    return list[0];
   }
 
 }
