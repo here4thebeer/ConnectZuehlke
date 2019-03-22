@@ -31,7 +31,7 @@
               (click)="onFavorite($event, project)">
         <mat-icon>favorite</mat-icon>
       </button>
-      <button class="button-not-favorite" matTooltip="Open in Insight" mat-mini-fab (click)="redirectToProjectURL(project)">
+      <button class="button-not-favorite" matTooltip="Open in Insight" mat-mini-fab (click)="redirectToProjectURL($event, project)">
         <mat-icon>open_in_new</mat-icon>
       </button>
     </mat-card-content>

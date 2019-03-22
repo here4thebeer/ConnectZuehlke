@@ -2,8 +2,8 @@ import { ProjectFilterService } from './project-filter.service';
 import { ProjectFilterSelection } from './project-filter/project-filter';
 import { Project } from './domain/Project';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, timer } from 'rxjs';
-import { catchError, tap, map, debounce, delayWhen, withLatestFrom, take, concat, skip, debounceTime } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { catchError, tap, map, debounceTime } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from '@agm/core';
 

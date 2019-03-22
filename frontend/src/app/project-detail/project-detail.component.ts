@@ -32,7 +32,8 @@ export class ProjectDetailComponent implements OnChanges {
     this.selectedProject.emit(project);
   }
 
-  public redirectToProjectURL(project: Project) {
+  public redirectToProjectURL(event, project: Project) {
+    event.stopPropagation();
     window.open(project.projectURL);
   }
 

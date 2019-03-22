@@ -130,8 +130,7 @@ export class MapComponent implements OnInit {
   }
 
   private findProject(projectCode : string):Project {
-    let list = this.projects.filter(p => p.projectCode == projectCode);
-    debugger;
+    const list = this.projects.filter(p => p.projectCode === projectCode);
     return list[0];
   }
 
