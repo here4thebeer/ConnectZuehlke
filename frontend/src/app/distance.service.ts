@@ -23,21 +23,24 @@ export class DistanceService {
 
   loadDistanceForProject(origin: LatLng, project: Project) {
     if (project.zuehlkeCompany !== 'Zühlke Switzerland') {
-      this.geocodeService.route(project.location).then(direction => {
-        project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
-        project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
-      }).catch(err => {
-        console.log(err);
-          project.commuteDistance = Number.NaN;
-          project.commuteDuration = Number.NaN;
-        }
-      )
+      if (project.zuehlkeCompany === 'Zuhlke Singapore') {
+        project.commuteDistance = 12000;
+        project.commuteDuration = 1000;
+      } else {
+        this.geocodeService.route(project.location).then(direction => {
+          project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
+          project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
+        }).catch(err => {
+            project.commuteDistance = Number.NaN;
+            project.commuteDuration = Number.NaN;
+          }
+        )
+      }
     } else {
       this.geocodeService.route(project.location, origin).then(direction => {
         project.commuteDistance = Math.round((direction.routes[0].legs[0].distance.value) / 1000);
         project.commuteDuration = Math.round(direction.routes[0].legs[0].duration.value / 60);
       }).catch(err => {
-        console.log(err);
           project.commuteDistance = Number.NaN;
           project.commuteDuration = Number.NaN;
         }
