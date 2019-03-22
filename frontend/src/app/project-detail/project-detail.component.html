@@ -1,0 +1,35 @@
+<mat-card (click)="redirectToProjectURL(project)">
+    <mat-card-header>
+      <img mat-card-avatar class="project-logo" [src]="project.logoURL">
+      <h4>{{ project.title }}</h4>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="project-detail-item">
+        <mat-icon matTooltip="Location">location_on</mat-icon>
+        <div> {{ project.location.street + ', ' + project.location.zip + ' ' + project.location.city }} </div>
+      </div>
+      <div class="project-detail-item">
+        <mat-icon matTooltip="Distance">commute</mat-icon>
+        <div> {{ project.commuteDistance }} km, {{ project.commuteDuration}} min</div>
+      </div>
+      <div class="project-detail-item">
+        <mat-icon matTooltip="Needed skills">build</mat-icon>
+        <div [matTooltip]="project.skills.join(', ')" matTooltipShowDelay="400">
+          {{ project.skills.slice(0, 7).join(', ') }}
+        </div>
+      </div>
+      <div class="project-detail-item">
+        <mat-icon matTooltip="Industry">business</mat-icon>
+        <div> {{ project.industry }} </div>
+      </div>
+      <div class="project-detail-item">
+        <mat-icon matTooltip="Number of staffed people">people_outline</mat-icon>
+        <div> {{ project.amountOfEmployees }} </div>
+        <button matTooltip="Add to whishlist"
+          [ngClass]="{'button-favorite':project.isFavorite, 'button-not-favorite':!project.isFavorite}" mat-mini-fab
+          (click)="onFavorite($event, project)">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>

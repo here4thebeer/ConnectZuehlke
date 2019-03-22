@@ -37,11 +37,6 @@ export class MapComponent implements OnInit {
     this.getProjects();
   }
 
-  public onFavorite(event, project: Project) {
-    event.stopPropagation();
-    project.isFavorite = !project.isFavorite;
-  }
-
   public selectProject(project: Project) {
     project.isSelected = true;
   }
