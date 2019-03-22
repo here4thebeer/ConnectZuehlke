@@ -39,6 +39,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
 import * as SockJS from 'sockjs-client';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
 library.add(faHeart);
@@ -70,7 +71,8 @@ const stompConfig: InjectableRxStompConfig = {
     SidebarComponent,
     TopbarComponent,
     MapComponent,
-    ProjectFilterComponent
+    ProjectFilterComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule,
