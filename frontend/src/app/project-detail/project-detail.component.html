@@ -10,7 +10,7 @@
       </div>
       <div class="project-detail-item">
         <mat-icon matTooltip="Distance">commute</mat-icon>
-        <div> {{ project.commuteDistance }} km, {{ project.commuteDuration}} min</div>
+        <div> {{ project.commuteDistance ? project.commuteDistance : '-' }} km, {{ project.commuteDuration ? project.commuteDuration : '-' }} min</div>
       </div>
       <div class="project-detail-item">
         <mat-icon matTooltip="Needed skills">build</mat-icon>
